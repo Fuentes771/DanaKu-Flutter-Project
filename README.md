@@ -1,3 +1,6 @@
+# DanaKu-Flutter-Project
+Pembuatan Mobile APP Manajamen Keuangan dengan nama DanaKu
+
 # flutter_manajemenkeuangan
 
 A new Flutter project.
