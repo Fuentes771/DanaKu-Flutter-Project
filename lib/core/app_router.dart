@@ -7,6 +7,9 @@ import '../features/auth/register_screen.dart';
 import '../features/auth/forgot_password_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/transactions/transactions_screen.dart';
+import '../features/transactions/add_transaction_screen.dart';
+import '../features/transactions/edit_transaction_screen.dart';
+import '../data/models/transaction.dart';
 import '../features/analytics/analytics_screen.dart';
 import '../features/notifications/notifications_screen.dart';
 import '../features/profile/profile_screen.dart';
@@ -57,6 +60,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   path: 'categories',
                   name: 'categories',
                   builder: (context, state) => const CategoriesScreen(),
+                ),
+                GoRoute(
+                  path: 'add',
+                  name: 'transaction_add',
+                  builder: (context, state) {
+                    final t = state.uri.queryParameters['type'];
+                    return AddTransactionScreen(
+                      initialType: t == 'income' ? TransactionType.income : t == 'expense' ? TransactionType.expense : null,
+                    );
+                  },
+                ),
+                GoRoute(
+                  path: ':id/edit',
+                  name: 'transaction_edit',
+                  builder: (context, state) => EditTransactionScreen(txId: state.pathParameters['id']!),
                 ),
               ],
             ),
