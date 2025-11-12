@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/category.dart';
+import 'interfaces.dart';
 
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
   CategoriesRepository(this._prefs);
 
   final SharedPreferences _prefs;
   static const _key = 'repo_categories_v1';
 
+  @override
   Future<List<AppCategory>> getAll() async {
     final raw = _prefs.getString(_key);
     if (raw == null) return [];
@@ -16,11 +18,13 @@ class CategoriesRepository {
     return list.map(AppCategory.fromJson).toList();
   }
 
+  @override
   Future<void> saveAll(List<AppCategory> categories) async {
     final raw = jsonEncode(categories.map((e) => e.toJson()).toList());
     await _prefs.setString(_key, raw);
   }
 
+  @override
   Future<void> ensureDefaults() async {
     final existing = await getAll();
     if (existing.isNotEmpty) return;

@@ -5,13 +5,16 @@ import '../../core/providers.dart';
 import '../../core/formatters.dart';
 import '../../data/models/category.dart';
 import '../../data/models/transaction.dart';
+import '../../core/theme.dart';
+import '../../core/design_system.dart';
 
 class AnalyticsScreen extends ConsumerWidget {
   const AnalyticsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-  final List<AppTransaction> txs = ref.watch(transactionsProvider).value ?? const <AppTransaction>[];
+    final List<AppTransaction> txs = ref.watch(transactionsProvider).value ?? const <AppTransaction>[];
+    final finance = Theme.of(context).extension<FinanceColors>();
     final cats = ref.watch(categoriesProvider).value ?? [];
     // Aggregate expense by category
     final expenseByCat = <String, int>{};
@@ -39,20 +42,23 @@ class AnalyticsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Analisis')),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(Spacing.lg),
         children: [
           Row(
             children: [
               Expanded(
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(Spacing.lg),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Pemasukan'),
                         const SizedBox(height: 6),
-                        Text(formatRupiah(totalIncome), style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                        Text(
+                          formatRupiah(totalIncome),
+                          style: TextStyle(color: finance?.income ?? Colors.green, fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),
@@ -62,13 +68,16 @@ class AnalyticsScreen extends ConsumerWidget {
               Expanded(
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(Spacing.lg),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Pengeluaran'),
                         const SizedBox(height: 6),
-                        Text(formatRupiah(totalExpense), style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                        Text(
+                          formatRupiah(totalExpense),
+                          style: TextStyle(color: finance?.expense ?? Colors.red, fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),
@@ -79,7 +88,7 @@ class AnalyticsScreen extends ConsumerWidget {
           const SizedBox(height: 16),
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(Spacing.lg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -127,7 +136,7 @@ class AnalyticsScreen extends ConsumerWidget {
           const SizedBox(height: 16),
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(Spacing.lg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -158,14 +167,14 @@ class AnalyticsScreen extends ConsumerWidget {
                         lineBarsData: [
                           LineChartBarData(
                             isCurved: true,
-                            color: Colors.green,
+                            color: finance?.income ?? Colors.green,
                             barWidth: 2,
                             dotData: const FlDotData(show: false),
                             spots: _monthlySpots(txs, true),
                           ),
                           LineChartBarData(
                             isCurved: true,
-                            color: Colors.red,
+                            color: finance?.expense ?? Colors.red,
                             barWidth: 2,
                             dotData: const FlDotData(show: false),
                             spots: _monthlySpots(txs, false),

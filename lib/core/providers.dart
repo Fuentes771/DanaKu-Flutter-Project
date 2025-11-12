@@ -1,16 +1,35 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../core/app_config.dart';
+import '../data/interfaces.dart';
 import '../data/auth_repository.dart';
 import '../data/categories_repository.dart';
 import '../data/transactions_repository.dart';
 import '../data/models/category.dart';
 import '../data/models/transaction.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../data/firebase/firebase_auth_repository.dart';
+import '../data/firebase/firebase_categories_repository.dart';
+import '../data/firebase/firebase_transactions_repository.dart';
 
 final sharedPreferencesProvider = FutureProvider<SharedPreferences>((ref) async {
   return SharedPreferences.getInstance();
 });
 
-final authRepositoryProvider = Provider<AuthRepository?>((ref) {
+final backendProvider = Provider<AppBackend>((ref) => appBackend);
+
+final authRepositoryProvider = Provider<IAuthRepository?>((ref) {
+  final backend = ref.watch(backendProvider);
+  if (backend == AppBackend.firebase) {
+    // If Firebase isn't initialized or user not set, still return repo for UI flows
+    try {
+      final auth = FirebaseAuth.instance;
+      return FirebaseAuthRepository(auth);
+    } catch (_) {
+      // Fallback to local if Firebase not available
+    }
+  }
   final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(
         data: (p) => p,
         orElse: () => null,
@@ -19,13 +38,33 @@ final authRepositoryProvider = Provider<AuthRepository?>((ref) {
   return AuthRepository(prefs);
 });
 
-final categoriesRepositoryProvider = Provider<CategoriesRepository?>((ref) {
+final categoriesRepositoryProvider = Provider<ICategoriesRepository?>((ref) {
+  final backend = ref.watch(backendProvider);
+  if (backend == AppBackend.firebase) {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId != null) {
+        return FirebaseCategoriesRepository(FirebaseFirestore.instance, userId);
+      }
+    } catch (_) {}
+    return null; // will be handled by notifier fallback below
+  }
   final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(data: (p) => p, orElse: () => null);
   if (prefs == null) return null;
   return CategoriesRepository(prefs);
 });
 
-final transactionsRepositoryProvider = Provider<TransactionsRepository?>((ref) {
+final transactionsRepositoryProvider = Provider<ITransactionsRepository?>((ref) {
+  final backend = ref.watch(backendProvider);
+  if (backend == AppBackend.firebase) {
+    try {
+      final userId = FirebaseAuth.instance.currentUser?.uid;
+      if (userId != null) {
+        return FirebaseTransactionsRepository(FirebaseFirestore.instance, userId);
+      }
+    } catch (_) {}
+    return null;
+  }
   final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(data: (p) => p, orElse: () => null);
   if (prefs == null) return null;
   return TransactionsRepository(prefs);
@@ -33,7 +72,7 @@ final transactionsRepositoryProvider = Provider<TransactionsRepository?>((ref) {
 
 class CategoriesNotifier extends StateNotifier<AsyncValue<List<AppCategory>>> {
   CategoriesNotifier(this._repo) : super(const AsyncValue.loading());
-  final CategoriesRepository _repo;
+  final ICategoriesRepository _repo;
 
   Future<void> load() async {
     await _repo.ensureDefaults();
@@ -68,7 +107,7 @@ final categoriesProvider = StateNotifierProvider<CategoriesNotifier, AsyncValue<
 
 class TransactionsNotifier extends StateNotifier<AsyncValue<List<AppTransaction>>> {
   TransactionsNotifier(this._repo) : super(const AsyncValue.data(<AppTransaction>[]));
-  final TransactionsRepository _repo;
+  final ITransactionsRepository _repo;
 
   Future<void> load() async {
     final items = await _repo.getAll();

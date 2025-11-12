@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../core/theme.dart';
+import '../core/design_system.dart';
 
 class BalanceCard extends StatelessWidget {
   const BalanceCard({super.key, required this.title, required this.amount, this.trailing});
@@ -11,25 +13,72 @@ class BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final finance = Theme.of(context).extension<FinanceColors>()!;
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [cs.primary, cs.secondary], begin: Alignment.topLeft, end: Alignment.bottomRight),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: cs.primary.withOpacity(0.25), blurRadius: 24, offset: const Offset(0, 12))],
+        gradient: LinearGradient(
+          colors: [finance.accentGradientStart, finance.accentGradientEnd],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(Radii.xl),
+        boxShadow: Shadows.medium(finance.accentGradientStart),
+  border: Border.all(color: Colors.white.withValues(alpha: .15), width: 1.2),
       ),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       child: Row(
         children: [
           Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title, style: TextStyle(color: cs.onPrimary.withOpacity(0.9))),
-              const SizedBox(height: 6),
-              Text(amount, style: TextStyle(color: cs.onPrimary, fontSize: 28, fontWeight: FontWeight.w800)),
-            ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title.toUpperCase(),
+                  style: TextStyle(
+                    color: cs.onPrimary.withValues(alpha: 0.85),
+                    fontSize: 12,
+                    letterSpacing: 1.2,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: Spacing.xs),
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0, end: 1),
+                  duration: 600.ms,
+                  curve: Curves.easeOutCubic,
+                  builder: (context, value, child) => ShaderMask(
+                    shaderCallback: (rect) => LinearGradient(
+                      colors: [Colors.white, Colors.white.withValues(alpha: 0.7)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [value * 0.4, value],
+                    ).createShader(rect),
+                    blendMode: BlendMode.srcIn,
+                    child: child,
+                  ),
+                  child: Text(
+                    amount,
+                    style: TextStyle(
+                      color: cs.onPrimary,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      height: 1.1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          if (trailing != null) trailing!,
+          if (trailing != null) ...[
+            const SizedBox(width: Spacing.md),
+            trailing!,
+          ],
         ],
       ),
-    ).animate().fadeIn(duration: 350.ms, curve: Curves.easeOut).slideY(begin: 0.1, end: 0, duration: 350.ms);
+    )
+        .animate()
+        .fadeIn(duration: 400.ms, curve: Curves.easeOut)
+        .slideY(begin: 0.12, end: 0, duration: 400.ms, curve: Curves.easeOut)
+        .blurXY(begin: 6, end: 0, duration: 600.ms);
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/providers.dart';
 import '../../data/models/category.dart';
 import '../../data/models/transaction.dart';
+import '../../widgets/empty_state.dart';
+import '../../core/design_system.dart';
 
 class CategoriesScreen extends ConsumerWidget {
   const CategoriesScreen({super.key});
@@ -28,28 +31,32 @@ class CategoriesScreen extends ConsumerWidget {
         tooltip: 'Tambah Kategori',
         child: const Icon(Icons.add),
       ),
-      body: ListView.separated(
-        itemCount: cats.length,
-        separatorBuilder: (_, __) => const Divider(height: 0),
-        itemBuilder: (context, index) {
-          final c = cats[index];
-          final icon = c.type == CategoryType.expense ? Icons.remove_circle : Icons.add_circle;
-          final usedCount = _countUsage(txs, c.id);
-          return Dismissible(
-            key: ValueKey('cat_${c.id}'),
-            background: Container(
-              color: Colors.redAccent,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Icon(Icons.delete, color: Colors.white),
-            ),
-            secondaryBackground: Container(
-              color: Colors.redAccent,
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Icon(Icons.delete, color: Colors.white),
-            ),
-            confirmDismiss: (_) async {
+      body: cats.isEmpty
+          ? const EmptyState(icon: Icons.category, title: 'Belum ada kategori', subtitle: 'Tambahkan kategori baru dengan tombol + di kanan bawah')
+          : ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              itemCount: cats.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 4),
+              itemBuilder: (context, index) {
+                final c = cats[index];
+                final icon = c.type == CategoryType.expense ? Icons.remove_circle : Icons.add_circle;
+                final usedCount = _countUsage(txs, c.id);
+                final color = c.type == CategoryType.expense ? Colors.red : Colors.green;
+                return Dismissible(
+                  key: ValueKey('cat_${c.id}'),
+                  background: Container(
+                    color: Colors.redAccent,
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  secondaryBackground: Container(
+                    color: Colors.redAccent,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  confirmDismiss: (_) async {
               if (usedCount > 0) {
                 await showDialog<void>(
                   context: context,
@@ -74,17 +81,30 @@ class CategoriesScreen extends ConsumerWidget {
                   ) ??
                   false;
               return ok;
-            },
-            onDismissed: (_) => ref.read(categoriesProvider.notifier).remove(c.id),
-            child: ListTile(
-              leading: Icon(icon, color: c.type == CategoryType.expense ? Colors.red : Colors.green),
-              title: Text(c.name),
-              subtitle: Text(c.type == CategoryType.expense ? 'Pengeluaran' : 'Pemasukan'),
-              trailing: usedCount > 0 ? const Tooltip(message: 'Sedang dipakai', child: Icon(Icons.lock_outline)) : const Icon(Icons.chevron_left, color: Colors.transparent),
+                  },
+                  onDismissed: (_) => ref.read(categoriesProvider.notifier).remove(c.id),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: Spacing.md),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(Radii.lg),
+                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: .06), blurRadius: 10, offset: const Offset(0, 6))],
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(backgroundColor: color.withValues(alpha: .12), foregroundColor: color, child: Icon(icon)),
+                      title: Text(c.name, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+                      subtitle: Text(c.type == CategoryType.expense ? 'Pengeluaran' : 'Pemasukan'),
+                      trailing: usedCount > 0
+                          ? const Tooltip(message: 'Sedang dipakai', child: Icon(Icons.lock_outline))
+                          : const Icon(Icons.chevron_right),
+                    ),
+                  )
+                      .animate(delay: Duration(milliseconds: 40 * index))
+                      .fadeIn(duration: 250.ms)
+                      .slideY(begin: 0.05, end: 0, duration: 250.ms),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
