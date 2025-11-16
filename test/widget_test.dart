@@ -14,10 +14,8 @@ import 'package:flutter_manajemenkeuangan/app.dart';
 void main() {
   testWidgets('App boots and renders a screen', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: App()));
-    // Allow first frame
-    await tester.pump(const Duration(milliseconds: 100));
+    // Allow animations to complete
+    await tester.pumpAndSettle();
     expect(find.byType(Scaffold), findsWidgets);
-    // Let any pending timers (e.g., splash) complete to avoid test leakage
-    await tester.pump(const Duration(milliseconds: 400));
   });
 }
