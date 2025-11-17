@@ -20,10 +20,18 @@ class Radii {
 
 class Shadows {
   static List<BoxShadow> soft(Color color) => [
-        BoxShadow(color: color.withValues(alpha: 0.08), blurRadius: 12, offset: const Offset(0, 6)),
-      ];
+    BoxShadow(
+      color: color.withValues(alpha: 0.08),
+      blurRadius: 12,
+      offset: const Offset(0, 6),
+    ),
+  ];
 
   static List<BoxShadow> medium(Color color) => [
-        BoxShadow(color: color.withValues(alpha: 0.12), blurRadius: 20, offset: const Offset(0, 10)),
-      ];
+    BoxShadow(
+      color: color.withValues(alpha: 0.12),
+      blurRadius: 20,
+      offset: const Offset(0, 10),
+    ),
+  ];
 }

@@ -13,7 +13,9 @@ import '../data/firebase/firebase_auth_repository.dart';
 import '../data/firebase/firebase_categories_repository.dart';
 import '../data/firebase/firebase_transactions_repository.dart';
 
-final sharedPreferencesProvider = FutureProvider<SharedPreferences>((ref) async {
+final sharedPreferencesProvider = FutureProvider<SharedPreferences>((
+  ref,
+) async {
   return SharedPreferences.getInstance();
 });
 
@@ -30,10 +32,9 @@ final authRepositoryProvider = Provider<IAuthRepository?>((ref) {
       // Fallback to local if Firebase not available
     }
   }
-  final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(
-        data: (p) => p,
-        orElse: () => null,
-      );
+  final prefs = ref
+      .watch(sharedPreferencesProvider)
+      .maybeWhen(data: (p) => p, orElse: () => null);
   if (prefs == null) return null;
   return AuthRepository(prefs);
 });
@@ -49,23 +50,32 @@ final categoriesRepositoryProvider = Provider<ICategoriesRepository?>((ref) {
     } catch (_) {}
     return null; // will be handled by notifier fallback below
   }
-  final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(data: (p) => p, orElse: () => null);
+  final prefs = ref
+      .watch(sharedPreferencesProvider)
+      .maybeWhen(data: (p) => p, orElse: () => null);
   if (prefs == null) return null;
   return CategoriesRepository(prefs);
 });
 
-final transactionsRepositoryProvider = Provider<ITransactionsRepository?>((ref) {
+final transactionsRepositoryProvider = Provider<ITransactionsRepository?>((
+  ref,
+) {
   final backend = ref.watch(backendProvider);
   if (backend == AppBackend.firebase) {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
       if (userId != null) {
-        return FirebaseTransactionsRepository(FirebaseFirestore.instance, userId);
+        return FirebaseTransactionsRepository(
+          FirebaseFirestore.instance,
+          userId,
+        );
       }
     } catch (_) {}
     return null;
   }
-  final prefs = ref.watch(sharedPreferencesProvider).maybeWhen(data: (p) => p, orElse: () => null);
+  final prefs = ref
+      .watch(sharedPreferencesProvider)
+      .maybeWhen(data: (p) => p, orElse: () => null);
   if (prefs == null) return null;
   return TransactionsRepository(prefs);
 });
@@ -95,18 +105,23 @@ class CategoriesNotifier extends StateNotifier<AsyncValue<List<AppCategory>>> {
   }
 }
 
-final categoriesProvider = StateNotifierProvider<CategoriesNotifier, AsyncValue<List<AppCategory>>>((ref) {
-  final repo = ref.watch(categoriesRepositoryProvider);
-  if (repo == null) {
-    return CategoriesNotifier(FakeCategoriesRepository())..load();
-  }
-  final notifier = CategoriesNotifier(repo);
-  notifier.load();
-  return notifier;
-});
+final categoriesProvider =
+    StateNotifierProvider<CategoriesNotifier, AsyncValue<List<AppCategory>>>((
+      ref,
+    ) {
+      final repo = ref.watch(categoriesRepositoryProvider);
+      if (repo == null) {
+        return CategoriesNotifier(FakeCategoriesRepository())..load();
+      }
+      final notifier = CategoriesNotifier(repo);
+      notifier.load();
+      return notifier;
+    });
 
-class TransactionsNotifier extends StateNotifier<AsyncValue<List<AppTransaction>>> {
-  TransactionsNotifier(this._repo) : super(const AsyncValue.data(<AppTransaction>[]));
+class TransactionsNotifier
+    extends StateNotifier<AsyncValue<List<AppTransaction>>> {
+  TransactionsNotifier(this._repo)
+    : super(const AsyncValue.data(<AppTransaction>[]));
   final ITransactionsRepository _repo;
 
   Future<void> load() async {
@@ -115,21 +130,26 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<AppTransaction>
   }
 
   Future<void> add(AppTransaction tx) async {
-    final current = <AppTransaction>[...(state.value ?? const <AppTransaction>[])];
+    final current = <AppTransaction>[
+      ...(state.value ?? const <AppTransaction>[]),
+    ];
     current.insert(0, tx);
     state = AsyncValue.data(current);
     await _repo.saveAll(current);
   }
 
   Future<void> remove(String id) async {
-    final current = <AppTransaction>[...(state.value ?? const <AppTransaction>[])]
-      ..removeWhere((e) => e.id == id);
+    final current = <AppTransaction>[
+      ...(state.value ?? const <AppTransaction>[]),
+    ]..removeWhere((e) => e.id == id);
     state = AsyncValue.data(current);
     await _repo.saveAll(current);
   }
 
   Future<void> update(AppTransaction tx) async {
-    final current = <AppTransaction>[...(state.value ?? const <AppTransaction>[])];
+    final current = <AppTransaction>[
+      ...(state.value ?? const <AppTransaction>[]),
+    ];
     final idx = current.indexWhere((e) => e.id == tx.id);
     if (idx >= 0) {
       current[idx] = tx;
@@ -139,15 +159,19 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<AppTransaction>
   }
 }
 
-final transactionsProvider = StateNotifierProvider<TransactionsNotifier, AsyncValue<List<AppTransaction>>>((ref) {
-  final repo = ref.watch(transactionsRepositoryProvider);
-  if (repo == null) {
-    return TransactionsNotifier(FakeTransactionsRepository())..load();
-  }
-  final notifier = TransactionsNotifier(repo);
-  notifier.load();
-  return notifier;
-});
+final transactionsProvider =
+    StateNotifierProvider<
+      TransactionsNotifier,
+      AsyncValue<List<AppTransaction>>
+    >((ref) {
+      final repo = ref.watch(transactionsRepositoryProvider);
+      if (repo == null) {
+        return TransactionsNotifier(FakeTransactionsRepository())..load();
+      }
+      final notifier = TransactionsNotifier(repo);
+      notifier.load();
+      return notifier;
+    });
 
 // Simple in-memory fallbacks to avoid null repos in early boot (tests/dev)
 class FakeCategoriesRepository extends CategoriesRepository {

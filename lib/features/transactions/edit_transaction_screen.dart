@@ -11,7 +11,8 @@ class EditTransactionScreen extends ConsumerStatefulWidget {
   final String txId;
 
   @override
-  ConsumerState<EditTransactionScreen> createState() => _EditTransactionScreenState();
+  ConsumerState<EditTransactionScreen> createState() =>
+      _EditTransactionScreenState();
 }
 
 class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
@@ -26,12 +27,20 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
   void initState() {
     super.initState();
     final txs = ref.read(transactionsProvider).value ?? [];
-    final tx = txs.firstWhere((e) => e.id == widget.txId, orElse: () =>
-        AppTransaction(id: widget.txId, amount: 0, type: TransactionType.expense, categoryId: '', date: DateTime.now()));
+    final tx = txs.firstWhere(
+      (e) => e.id == widget.txId,
+      orElse: () => AppTransaction(
+        id: widget.txId,
+        amount: 0,
+        type: TransactionType.expense,
+        categoryId: '',
+        date: DateTime.now(),
+      ),
+    );
     _type = tx.type;
     _categoryId = tx.categoryId;
     _date = tx.date;
-  _amountCtrl.text = formatRupiahNoSymbol(tx.amount);
+    _amountCtrl.text = formatRupiahNoSymbol(tx.amount);
     _noteCtrl.text = tx.note ?? '';
   }
 
@@ -44,7 +53,9 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
 
   Future<void> _save() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    final amount = int.tryParse(_amountCtrl.text.replaceAll('.', '').replaceAll(',', ''));
+    final amount = int.tryParse(
+      _amountCtrl.text.replaceAll('.', '').replaceAll(',', ''),
+    );
     if (amount == null) return;
     final tx = AppTransaction(
       id: widget.txId,
@@ -62,7 +73,15 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final catsAsync = ref.watch(categoriesProvider);
-    final cats = (catsAsync.value ?? []).where((c) => (c.type == CategoryType.expense && _type == TransactionType.expense) || (c.type == CategoryType.income && _type == TransactionType.income)).toList();
+    final cats = (catsAsync.value ?? [])
+        .where(
+          (c) =>
+              (c.type == CategoryType.expense &&
+                  _type == TransactionType.expense) ||
+              (c.type == CategoryType.income &&
+                  _type == TransactionType.income),
+        )
+        .toList();
     if (_categoryId == null && cats.isNotEmpty) _categoryId = cats.first.id;
 
     return Scaffold(
@@ -77,8 +96,14 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
                 initialValue: _type,
                 decoration: const InputDecoration(labelText: 'Tipe'),
                 items: const [
-                  DropdownMenuItem(value: TransactionType.expense, child: Text('Pengeluaran')),
-                  DropdownMenuItem(value: TransactionType.income, child: Text('Pemasukan')),
+                  DropdownMenuItem(
+                    value: TransactionType.expense,
+                    child: Text('Pengeluaran'),
+                  ),
+                  DropdownMenuItem(
+                    value: TransactionType.income,
+                    child: Text('Pemasukan'),
+                  ),
                 ],
                 onChanged: (v) => setState(() {
                   _type = v ?? TransactionType.expense;
@@ -89,7 +114,11 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
               DropdownButtonFormField<String>(
                 initialValue: _categoryId,
                 decoration: const InputDecoration(labelText: 'Kategori'),
-                items: cats.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
+                items: cats
+                    .map(
+                      (c) => DropdownMenuItem(value: c.id, child: Text(c.name)),
+                    )
+                    .toList(),
                 onChanged: (v) => setState(() => _categoryId = v),
               ),
               const SizedBox(height: 12),
@@ -100,13 +129,19 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
                   prefixText: 'Rp ',
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly, RupiahInputFormatter()],
-                validator: (v) => (v == null || v.isEmpty) ? 'Nominal wajib diisi' : null,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  RupiahInputFormatter(),
+                ],
+                validator: (v) =>
+                    (v == null || v.isEmpty) ? 'Nominal wajib diisi' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _noteCtrl,
-                decoration: const InputDecoration(labelText: 'Catatan (opsional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Catatan (opsional)',
+                ),
               ),
               const SizedBox(height: 12),
               Row(
@@ -123,7 +158,7 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
                       if (picked != null) setState(() => _date = picked);
                     },
                     child: const Text('Pilih'),
-                  )
+                  ),
                 ],
               ),
               const Spacer(),
@@ -133,7 +168,7 @@ class _EditTransactionScreenState extends ConsumerState<EditTransactionScreen> {
                   onPressed: _save,
                   child: const Text('Simpan'),
                 ),
-              )
+              ),
             ],
           ),
         ),

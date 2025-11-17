@@ -14,44 +14,72 @@ class AnalyticsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<AppTransaction> txs = ref.watch(transactionsProvider).value ?? const <AppTransaction>[];
+    final List<AppTransaction> txs =
+        ref.watch(transactionsProvider).value ?? const <AppTransaction>[];
     final finance = Theme.of(context).extension<FinanceColors>();
     final cats = ref.watch(categoriesProvider).value ?? [];
-    
+
     // Aggregate expense by category
     final expenseByCat = <String, int>{};
     for (final t in txs.where((e) => e.type.name == 'expense')) {
       expenseByCat[t.categoryId] = (expenseByCat[t.categoryId] ?? 0) + t.amount;
     }
-    
+
     // Sort categories by amount
     final sortedCategories = expenseByCat.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    
+
     final sections = <PieChartSectionData>[];
-    final colors = [Colors.red, Colors.orange, Colors.blue, Colors.purple, Colors.brown, Colors.teal, Colors.indigo];
+    final colors = [
+      Colors.red,
+      Colors.orange,
+      Colors.blue,
+      Colors.purple,
+      Colors.brown,
+      Colors.teal,
+      Colors.indigo,
+    ];
     int i = 0;
     expenseByCat.forEach((catId, amount) {
-      final cat = cats.firstWhere((c) => c.id == catId, orElse: () => AppCategory(id: 'unknown', name: 'Lainnya', type: CategoryType.expense));
-      sections.add(PieChartSectionData(
-        color: colors[i % colors.length],
-        value: amount.toDouble(),
-        title: cat.name,
-        radius: 60,
-        titleStyle: const TextStyle(fontSize: 12, color: Colors.white),
-      ));
+      final cat = cats.firstWhere(
+        (c) => c.id == catId,
+        orElse: () => AppCategory(
+          id: 'unknown',
+          name: 'Lainnya',
+          type: CategoryType.expense,
+        ),
+      );
+      sections.add(
+        PieChartSectionData(
+          color: colors[i % colors.length],
+          value: amount.toDouble(),
+          title: cat.name,
+          radius: 60,
+          titleStyle: const TextStyle(fontSize: 12, color: Colors.white),
+        ),
+      );
       i++;
     });
 
-    final totalIncome = txs.where((t) => t.type.name == 'income').fold<int>(0, (s, t) => s + t.amount);
-    final totalExpense = txs.where((t) => t.type.name == 'expense').fold<int>(0, (s, t) => s + t.amount);
+    final totalIncome = txs
+        .where((t) => t.type.name == 'income')
+        .fold<int>(0, (s, t) => s + t.amount);
+    final totalExpense = txs
+        .where((t) => t.type.name == 'expense')
+        .fold<int>(0, (s, t) => s + t.amount);
     final savings = totalIncome - totalExpense;
     final savingsRate = totalIncome > 0 ? (savings / totalIncome * 100) : 0.0;
-    
+
     // Calculate daily average for last 30 days
     final now = DateTime.now();
-    final last30Days = txs.where((t) => now.difference(t.date).inDays <= 30 && t.type == TransactionType.expense);
-    final dailyAverage = last30Days.isEmpty ? 0 : last30Days.fold<int>(0, (s, t) => s + t.amount) ~/ 30;
+    final last30Days = txs.where(
+      (t) =>
+          now.difference(t.date).inDays <= 30 &&
+          t.type == TransactionType.expense,
+    );
+    final dailyAverage = last30Days.isEmpty
+        ? 0
+        : last30Days.fold<int>(0, (s, t) => s + t.amount) ~/ 30;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Analisis')),
@@ -72,7 +100,11 @@ class AnalyticsScreen extends ConsumerWidget {
                         const SizedBox(height: 6),
                         Text(
                           formatRupiah(totalIncome),
-                          style: TextStyle(color: finance?.income ?? Colors.green, fontWeight: FontWeight.bold, fontSize: 16),
+                          style: TextStyle(
+                            color: finance?.income ?? Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ],
                     ),
@@ -87,11 +119,18 @@ class AnalyticsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Pengeluaran', style: TextStyle(fontSize: 12)),
+                        const Text(
+                          'Pengeluaran',
+                          style: TextStyle(fontSize: 12),
+                        ),
                         const SizedBox(height: 6),
                         Text(
                           formatRupiah(totalExpense),
-                          style: TextStyle(color: finance?.expense ?? Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
+                          style: TextStyle(
+                            color: finance?.expense ?? Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ],
                     ),
@@ -134,11 +173,17 @@ class AnalyticsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Rata-rata/Hari', style: TextStyle(fontSize: 12)),
+                        const Text(
+                          'Rata-rata/Hari',
+                          style: TextStyle(fontSize: 12),
+                        ),
                         const SizedBox(height: 6),
                         Text(
                           formatRupiah(dailyAverage),
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ],
                     ),
@@ -158,12 +203,16 @@ class AnalyticsScreen extends ConsumerWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: savings >= 0 ? Colors.green[100] : Colors.orange[100],
+                      color: savings >= 0
+                          ? Colors.green[100]
+                          : Colors.orange[100],
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       savings >= 0 ? Icons.trending_up : Icons.trending_down,
-                      color: savings >= 0 ? Colors.green[700] : Colors.orange[700],
+                      color: savings >= 0
+                          ? Colors.green[700]
+                          : Colors.orange[700],
                       size: 32,
                     ),
                   ),
@@ -173,20 +222,26 @@ class AnalyticsScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          savings >= 0 ? 'Arus Kas Positif' : 'Arus Kas Negatif',
+                          savings >= 0
+                              ? 'Arus Kas Positif'
+                              : 'Arus Kas Negatif',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: savings >= 0 ? Colors.green[900] : Colors.orange[900],
+                            color: savings >= 0
+                                ? Colors.green[900]
+                                : Colors.orange[900],
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          savings >= 0 
-                            ? 'Pemasukan lebih besar dari pengeluaran'
-                            : 'Pengeluaran melebihi pemasukan',
+                          savings >= 0
+                              ? 'Pemasukan lebih besar dari pengeluaran'
+                              : 'Pengeluaran melebihi pemasukan',
                           style: TextStyle(
                             fontSize: 12,
-                            color: savings >= 0 ? Colors.green[700] : Colors.orange[700],
+                            color: savings >= 0
+                                ? Colors.green[700]
+                                : Colors.orange[700],
                           ),
                         ),
                       ],
@@ -197,7 +252,9 @@ class AnalyticsScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: savings >= 0 ? Colors.green[700] : Colors.orange[700],
+                      color: savings >= 0
+                          ? Colors.green[700]
+                          : Colors.orange[700],
                     ),
                   ),
                 ],
@@ -215,8 +272,14 @@ class AnalyticsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Tingkat Tabungan', style: TextStyle(fontWeight: FontWeight.w600)),
-                      Text('${savingsRate.toStringAsFixed(1)}%', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Tingkat Tabungan',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        '${savingsRate.toStringAsFixed(1)}%',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -227,13 +290,21 @@ class AnalyticsScreen extends ConsumerWidget {
                       minHeight: 12,
                       backgroundColor: Colors.grey[200],
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        savingsRate >= 20 ? Colors.green : savingsRate >= 10 ? Colors.orange : Colors.red,
+                        savingsRate >= 20
+                            ? Colors.green
+                            : savingsRate >= 10
+                            ? Colors.orange
+                            : Colors.red,
                       ),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    savingsRate >= 20 ? 'Bagus! Terus pertahankan' : savingsRate >= 10 ? 'Lumayan, bisa ditingkatkan' : 'Perlu lebih hemat',
+                    savingsRate >= 20
+                        ? 'Bagus! Terus pertahankan'
+                        : savingsRate >= 10
+                        ? 'Lumayan, bisa ditingkatkan'
+                        : 'Perlu lebih hemat',
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
@@ -248,7 +319,10 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Perbandingan Bulanan', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Perbandingan Bulanan',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 200,
@@ -264,17 +338,28 @@ class AnalyticsScreen extends ConsumerWidget {
                               showTitles: true,
                               getTitlesWidget: (value, meta) {
                                 final idx = value.toInt();
-                                final dt = DateTime.now().subtract(Duration(days: (5 - idx) * 30));
+                                final dt = DateTime.now().subtract(
+                                  Duration(days: (5 - idx) * 30),
+                                );
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text('${dt.month}/${dt.year % 100}', style: const TextStyle(fontSize: 10)),
+                                  child: Text(
+                                    '${dt.month}/${dt.year % 100}',
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
                                 );
                               },
                             ),
                           ),
-                          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          leftTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
                         ),
                         gridData: const FlGridData(show: false),
                         borderData: FlBorderData(show: false),
@@ -286,9 +371,15 @@ class AnalyticsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildLegendItem('Pemasukan', finance?.income ?? Colors.green),
+                      _buildLegendItem(
+                        'Pemasukan',
+                        finance?.income ?? Colors.green,
+                      ),
                       const SizedBox(width: 16),
-                      _buildLegendItem('Pengeluaran', finance?.expense ?? Colors.red),
+                      _buildLegendItem(
+                        'Pengeluaran',
+                        finance?.expense ?? Colors.red,
+                      ),
                     ],
                   ),
                 ],
@@ -303,7 +394,10 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Tren Pengeluaran Mingguan', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Tren Pengeluaran Mingguan',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 180,
@@ -321,9 +415,15 @@ class AnalyticsScreen extends ConsumerWidget {
                           },
                         ),
                         titlesData: FlTitlesData(
-                          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          leftTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
@@ -333,7 +433,10 @@ class AnalyticsScreen extends ConsumerWidget {
                                 if (idx >= 0 && idx < weeks.length) {
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(weeks[idx], style: const TextStyle(fontSize: 10)),
+                                    child: Text(
+                                      weeks[idx],
+                                      style: const TextStyle(fontSize: 10),
+                                    ),
                                   );
                                 }
                                 return const Text('');
@@ -363,7 +466,8 @@ class AnalyticsScreen extends ConsumerWidget {
                             spots: _weeklySpots(txs),
                             belowBarData: BarAreaData(
                               show: true,
-                              color: (finance?.expense ?? Colors.red).withOpacity(0.1),
+                              color: (finance?.expense ?? Colors.red)
+                                  .withOpacity(0.1),
                             ),
                           ),
                         ],
@@ -386,26 +490,51 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Pola Pengeluaran Harian', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Pola Pengeluaran Harian',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 16),
                   ..._buildDailyPattern(txs),
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Rendah', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                      Text(
+                        'Rendah',
+                        style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                      ),
                       Row(
                         children: [
-                          Container(width: 12, height: 12, color: Colors.green[100]),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            color: Colors.green[100],
+                          ),
                           const SizedBox(width: 4),
-                          Container(width: 12, height: 12, color: Colors.green[300]),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            color: Colors.green[300],
+                          ),
                           const SizedBox(width: 4),
-                          Container(width: 12, height: 12, color: Colors.green[500]),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            color: Colors.green[500],
+                          ),
                           const SizedBox(width: 4),
-                          Container(width: 12, height: 12, color: Colors.green[700]),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            color: Colors.green[700],
+                          ),
                         ],
                       ),
-                      Text('Tinggi', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                      Text(
+                        'Tinggi',
+                        style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                      ),
                     ],
                   ),
                 ],
@@ -420,7 +549,10 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Pengeluaran per Kategori', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Pengeluaran per Kategori',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 12),
                   SizedBox(
                     height: 260,
@@ -429,21 +561,29 @@ class AnalyticsScreen extends ConsumerWidget {
                         : Stack(
                             alignment: Alignment.center,
                             children: [
-                              PieChart(PieChartData(
-                                sectionsSpace: 2,
-                                centerSpaceRadius: 50,
-                                sections: sections,
-                              )),
+                              PieChart(
+                                PieChartData(
+                                  sectionsSpace: 2,
+                                  centerSpaceRadius: 50,
+                                  sections: sections,
+                                ),
+                              ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     formatRupiah(totalExpense),
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                   const Text(
                                     'Total',
-                                    style: TextStyle(fontSize: 11, color: Colors.grey),
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -455,23 +595,52 @@ class AnalyticsScreen extends ConsumerWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ...expenseByCat.entries.toList().asMap().entries.map((entry) {
+                        ...expenseByCat.entries.toList().asMap().entries.map((
+                          entry,
+                        ) {
                           final idx = entry.key;
                           final catId = entry.value.key;
                           final amount = entry.value.value;
-                          final cat = cats.firstWhere((c) => c.id == catId, orElse: () => AppCategory(id: 'unknown', name: 'Lainnya', type: CategoryType.expense));
+                          final cat = cats.firstWhere(
+                            (c) => c.id == catId,
+                            orElse: () => AppCategory(
+                              id: 'unknown',
+                              name: 'Lainnya',
+                              type: CategoryType.expense,
+                            ),
+                          );
                           final color = colors[idx % colors.length];
-                          final percentage = totalExpense > 0 ? (amount / totalExpense * 100).toStringAsFixed(1) : '0';
+                          final percentage = totalExpense > 0
+                              ? (amount / totalExpense * 100).toStringAsFixed(1)
+                              : '0';
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4.0),
                             child: Row(
                               children: [
-                                Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    color: color,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(child: Text(cat.name)),
-                                Text('$percentage%', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                                Text(
+                                  '$percentage%',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
                                 const SizedBox(width: 8),
-                                Text(formatRupiah(amount), style: const TextStyle(fontWeight: FontWeight.w600)),
+                                Text(
+                                  formatRupiah(amount),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ],
                             ),
                           );
@@ -491,16 +660,30 @@ class AnalyticsScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Top 5 Kategori Pengeluaran', style: TextStyle(fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Top 5 Kategori Pengeluaran',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
                     const SizedBox(height: 16),
-                    ...sortedCategories.take(5).toList().asMap().entries.map((entry) {
+                    ...sortedCategories.take(5).toList().asMap().entries.map((
+                      entry,
+                    ) {
                       final idx = entry.key;
                       final catId = entry.value.key;
                       final amount = entry.value.value;
-                      final cat = cats.firstWhere((c) => c.id == catId, orElse: () => AppCategory(id: 'unknown', name: 'Lainnya', type: CategoryType.expense));
-                      final percentage = totalExpense > 0 ? amount / totalExpense : 0.0;
+                      final cat = cats.firstWhere(
+                        (c) => c.id == catId,
+                        orElse: () => AppCategory(
+                          id: 'unknown',
+                          name: 'Lainnya',
+                          type: CategoryType.expense,
+                        ),
+                      );
+                      final percentage = totalExpense > 0
+                          ? amount / totalExpense
+                          : 0.0;
                       final color = colors[idx % colors.length];
-                      
+
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: Column(
@@ -509,8 +692,20 @@ class AnalyticsScreen extends ConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(cat.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-                                Text(formatRupiah(amount), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                                Text(
+                                  cat.name,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  formatRupiah(amount),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 6),
@@ -520,7 +715,9 @@ class AnalyticsScreen extends ConsumerWidget {
                                 value: percentage,
                                 minHeight: 8,
                                 backgroundColor: Colors.grey[200],
-                                valueColor: AlwaysStoppedAnimation<Color>(color),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  color,
+                                ),
                               ),
                             ),
                           ],
@@ -539,14 +736,21 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Perbandingan Detail', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Perbandingan Detail',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           children: [
-                            Icon(Icons.arrow_downward, color: finance?.income ?? Colors.green, size: 40),
+                            Icon(
+                              Icons.arrow_downward,
+                              color: finance?.income ?? Colors.green,
+                              size: 40,
+                            ),
                             const SizedBox(height: 8),
                             Text(
                               formatRupiah(totalIncome),
@@ -557,19 +761,22 @@ class AnalyticsScreen extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            const Text('Pemasukan', style: TextStyle(fontSize: 12)),
+                            const Text(
+                              'Pemasukan',
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
                       ),
-                      Container(
-                        width: 2,
-                        height: 80,
-                        color: Colors.grey[300],
-                      ),
+                      Container(width: 2, height: 80, color: Colors.grey[300]),
                       Expanded(
                         child: Column(
                           children: [
-                            Icon(Icons.arrow_upward, color: finance?.expense ?? Colors.red, size: 40),
+                            Icon(
+                              Icons.arrow_upward,
+                              color: finance?.expense ?? Colors.red,
+                              size: 40,
+                            ),
                             const SizedBox(height: 8),
                             Text(
                               formatRupiah(totalExpense),
@@ -580,7 +787,10 @@ class AnalyticsScreen extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 4),
-                            const Text('Pengeluaran', style: TextStyle(fontSize: 12)),
+                            const Text(
+                              'Pengeluaran',
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
                       ),
@@ -596,13 +806,18 @@ class AnalyticsScreen extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Selisih:', style: TextStyle(fontWeight: FontWeight.w500)),
+                        const Text(
+                          'Selisih:',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                         Text(
                           formatRupiah(savings.abs()),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: savings >= 0 ? Colors.blue[700] : Colors.red[700],
+                            color: savings >= 0
+                                ? Colors.blue[700]
+                                : Colors.red[700],
                           ),
                         ),
                       ],
@@ -620,7 +835,10 @@ class AnalyticsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Tren 6 Bulan Terakhir', style: TextStyle(fontWeight: FontWeight.w600)),
+                  const Text(
+                    'Tren 6 Bulan Terakhir',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 200,
@@ -637,18 +855,29 @@ class AnalyticsScreen extends ConsumerWidget {
                           },
                         ),
                         titlesData: FlTitlesData(
-                          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          leftTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          rightTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
                               getTitlesWidget: (value, meta) {
                                 final idx = value.toInt();
-                                final dt = DateTime.now().subtract(Duration(days: (5 - idx) * 30));
+                                final dt = DateTime.now().subtract(
+                                  Duration(days: (5 - idx) * 30),
+                                );
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text('${dt.month}/${dt.year % 100}', style: const TextStyle(fontSize: 10)),
+                                  child: Text(
+                                    '${dt.month}/${dt.year % 100}',
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
                                 );
                               },
                               interval: 1,
@@ -666,7 +895,8 @@ class AnalyticsScreen extends ConsumerWidget {
                             spots: _monthlySpots(txs, true),
                             belowBarData: BarAreaData(
                               show: true,
-                              color: (finance?.income ?? Colors.green).withOpacity(0.1),
+                              color: (finance?.income ?? Colors.green)
+                                  .withOpacity(0.1),
                             ),
                           ),
                           LineChartBarData(
@@ -678,7 +908,8 @@ class AnalyticsScreen extends ConsumerWidget {
                             spots: _monthlySpots(txs, false),
                             belowBarData: BarAreaData(
                               show: true,
-                              color: (finance?.expense ?? Colors.red).withOpacity(0.1),
+                              color: (finance?.expense ?? Colors.red)
+                                  .withOpacity(0.1),
                             ),
                           ),
                         ],
@@ -691,9 +922,15 @@ class AnalyticsScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildLegendItem('Pemasukan', finance?.income ?? Colors.green),
+                      _buildLegendItem(
+                        'Pemasukan',
+                        finance?.income ?? Colors.green,
+                      ),
                       const SizedBox(width: 16),
-                      _buildLegendItem('Pengeluaran', finance?.expense ?? Colors.red),
+                      _buildLegendItem(
+                        'Pengeluaran',
+                        finance?.expense ?? Colors.red,
+                      ),
                     ],
                   ),
                 ],
@@ -727,13 +964,16 @@ List<FlSpot> _monthlySpots(List<AppTransaction> txs, bool income) {
   final now = DateTime.now();
   final buckets = List<int>.filled(6, 0);
   for (final t in txs) {
-    final monthsDiff = (now.year - t.date.year) * 12 + (now.month - t.date.month);
+    final monthsDiff =
+        (now.year - t.date.year) * 12 + (now.month - t.date.month);
     if (monthsDiff >= 0 && monthsDiff < 6) {
       final isIncome = t.type.name == 'income';
       if (isIncome == income) buckets[5 - monthsDiff] += t.amount;
     }
   }
-  return [for (int i = 0; i < 6; i++) FlSpot(i.toDouble(), buckets[i].toDouble())];
+  return [
+    for (int i = 0; i < 6; i++) FlSpot(i.toDouble(), buckets[i].toDouble()),
+  ];
 }
 
 List<FlSpot> _weeklySpots(List<AppTransaction> txs) {
@@ -746,7 +986,9 @@ List<FlSpot> _weeklySpots(List<AppTransaction> txs) {
       buckets[weekIndex] += t.amount;
     }
   }
-  return [for (int i = 0; i < 4; i++) FlSpot(i.toDouble(), buckets[i].toDouble())];
+  return [
+    for (int i = 0; i < 4; i++) FlSpot(i.toDouble(), buckets[i].toDouble()),
+  ];
 }
 
 double _getMaxWeeklyValue(List<AppTransaction> txs) {
@@ -759,7 +1001,10 @@ double _getMaxWeeklyValue(List<AppTransaction> txs) {
 double _getMaxMonthlyValue(List<AppTransaction> txs) {
   final incomeSpots = _monthlySpots(txs, true);
   final expenseSpots = _monthlySpots(txs, false);
-  final allValues = [...incomeSpots.map((s) => s.y), ...expenseSpots.map((s) => s.y)];
+  final allValues = [
+    ...incomeSpots.map((s) => s.y),
+    ...expenseSpots.map((s) => s.y),
+  ];
   if (allValues.isEmpty) return 1000000;
   final max = allValues.reduce(math.max);
   return max > 0 ? max : 1000000;
@@ -768,7 +1013,7 @@ double _getMaxMonthlyValue(List<AppTransaction> txs) {
 List<Widget> _buildDailyPattern(List<AppTransaction> txs) {
   final now = DateTime.now();
   final Map<int, int> dailyExpense = {};
-  
+
   // Aggregate last 28 days
   for (final t in txs.where((t) => t.type == TransactionType.expense)) {
     final daysDiff = now.difference(t.date).inDays;
@@ -776,10 +1021,12 @@ List<Widget> _buildDailyPattern(List<AppTransaction> txs) {
       dailyExpense[daysDiff] = (dailyExpense[daysDiff] ?? 0) + t.amount;
     }
   }
-  
-  final maxDaily = dailyExpense.values.isEmpty ? 1 : dailyExpense.values.reduce(math.max);
+
+  final maxDaily = dailyExpense.values.isEmpty
+      ? 1
+      : dailyExpense.values.reduce(math.max);
   final days = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
-  
+
   final rows = <Widget>[];
   for (int week = 0; week < 4; week++) {
     final cells = <Widget>[];
@@ -792,7 +1039,9 @@ List<Widget> _buildDailyPattern(List<AppTransaction> txs) {
     for (int day = 0; day < 7; day++) {
       final dayIndex = (3 - week) * 7 + day;
       final amount = dailyExpense[dayIndex] ?? 0;
-      final intensity = maxDaily > 0 ? (amount / maxDaily).clamp(0.0, 1.0) : 0.0;
+      final intensity = maxDaily > 0
+          ? (amount / maxDaily).clamp(0.0, 1.0)
+          : 0.0;
       Color color = Colors.grey[200]!;
       if (intensity > 0) {
         if (intensity > 0.75) {
@@ -827,7 +1076,7 @@ List<Widget> _buildDailyPattern(List<AppTransaction> txs) {
       ),
     );
   }
-  
+
   // Add day labels
   rows.insert(
     0,
@@ -836,23 +1085,34 @@ List<Widget> _buildDailyPattern(List<AppTransaction> txs) {
       child: Row(
         children: [
           const SizedBox(width: 32),
-          ...days.map((d) => Expanded(
-                child: Center(
-                  child: Text(d, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500)),
+          ...days.map(
+            (d) => Expanded(
+              child: Center(
+                child: Text(
+                  d,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     ),
   );
-  
+
   return rows;
 }
 
-List<BarChartGroupData> _getMonthlyBarGroups(List<AppTransaction> txs, FinanceColors? finance) {
+List<BarChartGroupData> _getMonthlyBarGroups(
+  List<AppTransaction> txs,
+  FinanceColors? finance,
+) {
   final incomeSpots = _monthlySpots(txs, true);
   final expenseSpots = _monthlySpots(txs, false);
-  
+
   return List.generate(6, (index) {
     return BarChartGroupData(
       x: index,

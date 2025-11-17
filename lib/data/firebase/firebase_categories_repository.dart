@@ -7,7 +7,8 @@ class FirebaseCategoriesRepository implements ICategoriesRepository {
   final String _userId;
   FirebaseCategoriesRepository(this._db, this._userId);
 
-  CollectionReference<Map<String, dynamic>> get _col => _db.collection('users').doc(_userId).collection('categories');
+  CollectionReference<Map<String, dynamic>> get _col =>
+      _db.collection('users').doc(_userId).collection('categories');
 
   @override
   Future<List<AppCategory>> getAll() async {
@@ -34,8 +35,16 @@ class FirebaseCategoriesRepository implements ICategoriesRepository {
     if (items.isNotEmpty) return;
     final defaults = <AppCategory>[
       AppCategory(id: 'exp_food', name: 'Makanan', type: CategoryType.expense),
-      AppCategory(id: 'exp_transport', name: 'Transportasi', type: CategoryType.expense),
-      AppCategory(id: 'exp_shopping', name: 'Belanja', type: CategoryType.expense),
+      AppCategory(
+        id: 'exp_transport',
+        name: 'Transportasi',
+        type: CategoryType.expense,
+      ),
+      AppCategory(
+        id: 'exp_shopping',
+        name: 'Belanja',
+        type: CategoryType.expense,
+      ),
       AppCategory(id: 'inc_salary', name: 'Gaji', type: CategoryType.income),
       AppCategory(id: 'inc_other', name: 'Lainnya', type: CategoryType.income),
     ];
