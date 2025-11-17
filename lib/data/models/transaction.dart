@@ -25,29 +25,31 @@ class AppTransaction {
     DateTime? date,
     String? note,
   }) => AppTransaction(
-        id: id ?? this.id,
-        amount: amount ?? this.amount,
-        type: type ?? this.type,
-        categoryId: categoryId ?? this.categoryId,
-        date: date ?? this.date,
-        note: note ?? this.note,
-      );
+    id: id ?? this.id,
+    amount: amount ?? this.amount,
+    type: type ?? this.type,
+    categoryId: categoryId ?? this.categoryId,
+    date: date ?? this.date,
+    note: note ?? this.note,
+  );
 
   factory AppTransaction.fromJson(Map<String, dynamic> json) => AppTransaction(
-        id: json['id'] as String,
-        amount: json['amount'] as int,
-        type: TransactionType.values.firstWhere((e) => e.name == json['type'] as String),
-        categoryId: json['categoryId'] as String,
-        date: DateTime.parse(json['date'] as String),
-        note: json['note'] as String?,
-      );
+    id: json['id'] as String,
+    amount: json['amount'] as int,
+    type: TransactionType.values.firstWhere(
+      (e) => e.name == json['type'] as String,
+    ),
+    categoryId: json['categoryId'] as String,
+    date: DateTime.parse(json['date'] as String),
+    note: json['note'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'amount': amount,
-        'type': type.name,
-        'categoryId': categoryId,
-        'date': date.toIso8601String(),
-        'note': note,
-      };
+    'id': id,
+    'amount': amount,
+    'type': type.name,
+    'categoryId': categoryId,
+    'date': date.toIso8601String(),
+    'note': note,
+  };
 }

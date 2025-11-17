@@ -9,7 +9,10 @@ class EmptyState extends StatelessWidget {
     this.subtitle,
     this.icon,
     this.illustrationAsset,
-  }) : assert(icon != null || illustrationAsset != null, 'Provide either an icon or an illustrationAsset');
+  }) : assert(
+         icon != null || illustrationAsset != null,
+         'Provide either an icon or an illustrationAsset',
+       );
 
   final IconData? icon;
   final String? illustrationAsset; // Optional SVG/PNG path
@@ -39,14 +42,18 @@ class EmptyState extends StatelessWidget {
               const SizedBox(height: Spacing.md),
               Text(
                 title,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               if (subtitle != null) ...[
                 const SizedBox(height: Spacing.sm),
                 Text(
                   subtitle!,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: cs.outline),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: cs.outline),
                   textAlign: TextAlign.center,
                 ),
               ],

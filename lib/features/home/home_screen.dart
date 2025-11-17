@@ -23,25 +23,41 @@ class HomeScreen extends ConsumerWidget {
     final txsAsync = ref.watch(transactionsProvider);
     final txs = txsAsync.value ?? [];
     final cats = ref.watch(categoriesProvider).value ?? [];
-    final balance = txs.fold<int>(0, (sum, t) => t.type.name == 'income' ? sum + t.amount : sum - t.amount);
+    final balance = txs.fold<int>(
+      0,
+      (sum, t) => t.type.name == 'income' ? sum + t.amount : sum - t.amount,
+    );
     final recent = txs.take(5).toList();
-    
+
     // Calculate statistics
     final now = DateTime.now();
-    final thisMonth = txs.where((t) => t.date.year == now.year && t.date.month == now.month);
-    final monthIncome = thisMonth.where((t) => t.type == TransactionType.income).fold<int>(0, (s, t) => s + t.amount);
-    final monthExpense = thisMonth.where((t) => t.type == TransactionType.expense).fold<int>(0, (s, t) => s + t.amount);
+    final thisMonth = txs.where(
+      (t) => t.date.year == now.year && t.date.month == now.month,
+    );
+    final monthIncome = thisMonth
+        .where((t) => t.type == TransactionType.income)
+        .fold<int>(0, (s, t) => s + t.amount);
+    final monthExpense = thisMonth
+        .where((t) => t.type == TransactionType.expense)
+        .fold<int>(0, (s, t) => s + t.amount);
     final monthSavings = monthIncome - monthExpense;
-    
+
     // Last 7 days trend
-    final last7Days = List.generate(7, (i) => now.subtract(Duration(days: 6 - i)));
+    final last7Days = List.generate(
+      7,
+      (i) => now.subtract(Duration(days: 6 - i)),
+    );
     final dailyExpenses = last7Days.map((day) {
-      return txs.where((t) => 
-        t.type == TransactionType.expense &&
-        t.date.year == day.year &&
-        t.date.month == day.month &&
-        t.date.day == day.day
-      ).fold<int>(0, (s, t) => s + t.amount).toDouble();
+      return txs
+          .where(
+            (t) =>
+                t.type == TransactionType.expense &&
+                t.date.year == day.year &&
+                t.date.month == day.month &&
+                t.date.day == day.day,
+          )
+          .fold<int>(0, (s, t) => s + t.amount)
+          .toDouble();
     }).toList();
 
     return Scaffold(
@@ -57,237 +73,319 @@ class HomeScreen extends ConsumerWidget {
                     children: [
                       const AppLogo(size: 40, animated: false),
                       const SizedBox(width: Spacing.md),
-                      Text('Beranda',
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                            fontWeight: FontWeight.w800,
-                          )),
+                      Text(
+                        'Beranda',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: Spacing.lg),
                   // Main Balance Card dengan gradient
                   Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(Radii.xl),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: .1), blurRadius: 20, offset: const Offset(0, 8)),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(Radii.xl),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: .1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'Total Saldo',
-                                  style: TextStyle(
-                                    color: theme.colorScheme.primary.withValues(alpha: 0.7),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Total Saldo',
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary
+                                            .withValues(alpha: 0.7),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      formatRupiah(balance),
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  formatRupiah(balance),
-                                  style: TextStyle(
+                                Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Icon(
+                                    Icons.account_balance_wallet,
                                     color: theme.colorScheme.primary,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.bold,
+                                    size: 28,
                                   ),
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 20),
                             Container(
-                              padding: const EdgeInsets.all(12),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.05,
+                                ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Icon(Icons.account_balance_wallet, color: theme.colorScheme.primary, size: 28),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: _buildQuickStat(
+                                      icon: Icons.trending_up,
+                                      label: 'Pemasukan',
+                                      amount: formatRupiah(monthIncome),
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 1,
+                                    height: 40,
+                                    color: theme.colorScheme.primary.withValues(
+                                      alpha: 0.2,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: _buildQuickStat(
+                                      icon: Icons.trending_down,
+                                      label: 'Pengeluaran',
+                                      amount: formatRupiah(monthExpense),
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.primary.withValues(alpha: 0.05),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: _buildQuickStat(
-                                  icon: Icons.trending_up,
-                                  label: 'Pemasukan',
-                                  amount: formatRupiah(monthIncome),
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                              Container(width: 1, height: 40, color: theme.colorScheme.primary.withValues(alpha: 0.2)),
-                              Expanded(
-                                child: _buildQuickStat(
-                                  icon: Icons.trending_down,
-                                  label: 'Pengeluaran',
-                                  amount: formatRupiah(monthExpense),
-                                  color: theme.colorScheme.primary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ).animate().fadeIn(duration: 400.ms).slideY(begin: -0.1, end: 0),
+                      )
+                      .animate()
+                      .fadeIn(duration: 400.ms)
+                      .slideY(begin: -0.1, end: 0),
                   const SizedBox(height: 16),
                   // Quick Actions
                   Row(
-                    children: [
-                      Expanded(
-                        child: _buildActionButton(
-                          context: context,
-                          label: 'Pemasukan',
-                          icon: Icons.add_circle,
-                          color: finance?.income ?? Colors.green,
-                          onTap: () => context.push('/app/transactions/add?type=income'),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildActionButton(
-                          context: context,
-                          label: 'Pengeluaran',
-                          icon: Icons.remove_circle,
-                          color: finance?.expense ?? Colors.red,
-                          onTap: () => context.push('/app/transactions/add?type=expense'),
-                        ),
-                      ),
-                    ],
-                  ).animate(delay: 100.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                        children: [
+                          Expanded(
+                            child: _buildActionButton(
+                              context: context,
+                              label: 'Pemasukan',
+                              icon: Icons.add_circle,
+                              color: finance?.income ?? Colors.green,
+                              onTap: () => context.push(
+                                '/app/transactions/add?type=income',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildActionButton(
+                              context: context,
+                              label: 'Pengeluaran',
+                              icon: Icons.remove_circle,
+                              color: finance?.expense ?? Colors.red,
+                              onTap: () => context.push(
+                                '/app/transactions/add?type=expense',
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                      .animate(delay: 100.ms)
+                      .fadeIn(duration: 400.ms)
+                      .slideY(begin: 0.1, end: 0),
                   const SizedBox(height: 16),
                   // Statistics Grid
                   Container(
-                    padding: const EdgeInsets.all(Spacing.lg),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(Radii.lg),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: .05), blurRadius: 10, offset: const Offset(0, 4)),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Ringkasan Bulan Ini', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _buildStatCard(
-                                context: context,
-                                title: 'Tabungan',
-                                value: formatRupiah(monthSavings),
-                                icon: Icons.savings,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: _buildStatCard(
-                                context: context,
-                                title: 'Transaksi',
-                                value: '${thisMonth.length}',
-                                icon: Icons.receipt_long,
-                                color: finance?.expense ?? Colors.red,
-                              ),
+                        padding: const EdgeInsets.all(Spacing.lg),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(Radii.lg),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: .05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ).animate(delay: 200.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
-                  const SizedBox(height: 16),
-                  // Spending Trend Chart
-                  Container(
-                    padding: const EdgeInsets.all(Spacing.lg),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(Radii.lg),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: .05), blurRadius: 10, offset: const Offset(0, 4)),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Tren 7 Hari', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
-                            TextButton.icon(
-                              onPressed: () => context.go('/app/analytics'),
-                              icon: const Icon(Icons.analytics, size: 16),
-                              label: const Text('Detail', style: TextStyle(fontSize: 12)),
+                            Text(
+                              'Ringkasan Bulan Ini',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                          height: 120,
-                          child: LineChart(
-                            LineChartData(
-                              gridData: const FlGridData(show: false),
-                              titlesData: const FlTitlesData(show: false),
-                              borderData: FlBorderData(show: false),
-                              lineBarsData: [
-                                LineChartBarData(
-                                  spots: dailyExpenses.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value)).toList(),
-                                  isCurved: true,
-                                  color: finance?.expense ?? Colors.red,
-                                  barWidth: 3,
-                                  isStrokeCapRound: true,
-                                  dotData: FlDotData(
-                                    show: true,
-                                    getDotPainter: (spot, percent, barData, index) {
-                                      return FlDotCirclePainter(
-                                        radius: 3,
-                                        color: Colors.white,
-                                        strokeWidth: 2,
-                                        strokeColor: finance?.expense ?? Colors.red,
-                                      );
-                                    },
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildStatCard(
+                                    context: context,
+                                    title: 'Tabungan',
+                                    value: formatRupiah(monthSavings),
+                                    icon: Icons.savings,
+                                    color: Colors.blue,
                                   ),
-                                  belowBarData: BarAreaData(
-                                    show: true,
-                                    color: (finance?.expense ?? Colors.red).withValues(alpha: 0.1),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: _buildStatCard(
+                                    context: context,
+                                    title: 'Transaksi',
+                                    value: '${thisMonth.length}',
+                                    icon: Icons.receipt_long,
+                                    color: finance?.expense ?? Colors.red,
                                   ),
                                 ),
                               ],
-                              minY: 0,
                             ),
-                          ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: List.generate(7, (i) {
-                            final day = last7Days[i];
-                            return Text(
-                              ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'][day.weekday - 1],
-                              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-                            );
-                          }),
+                      )
+                      .animate(delay: 200.ms)
+                      .fadeIn(duration: 400.ms)
+                      .slideY(begin: 0.1, end: 0),
+                  const SizedBox(height: 16),
+                  // Spending Trend Chart
+                  Container(
+                        padding: const EdgeInsets.all(Spacing.lg),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(Radii.lg),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: .05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ).animate(delay: 300.ms).fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Tren 7 Hari',
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                TextButton.icon(
+                                  onPressed: () => context.go('/app/analytics'),
+                                  icon: const Icon(Icons.analytics, size: 16),
+                                  label: const Text(
+                                    'Detail',
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              height: 120,
+                              child: LineChart(
+                                LineChartData(
+                                  gridData: const FlGridData(show: false),
+                                  titlesData: const FlTitlesData(show: false),
+                                  borderData: FlBorderData(show: false),
+                                  lineBarsData: [
+                                    LineChartBarData(
+                                      spots: dailyExpenses
+                                          .asMap()
+                                          .entries
+                                          .map(
+                                            (e) => FlSpot(
+                                              e.key.toDouble(),
+                                              e.value,
+                                            ),
+                                          )
+                                          .toList(),
+                                      isCurved: true,
+                                      color: finance?.expense ?? Colors.red,
+                                      barWidth: 3,
+                                      isStrokeCapRound: true,
+                                      dotData: FlDotData(
+                                        show: true,
+                                        getDotPainter:
+                                            (spot, percent, barData, index) {
+                                              return FlDotCirclePainter(
+                                                radius: 3,
+                                                color: Colors.white,
+                                                strokeWidth: 2,
+                                                strokeColor:
+                                                    finance?.expense ??
+                                                    Colors.red,
+                                              );
+                                            },
+                                      ),
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: (finance?.expense ?? Colors.red)
+                                            .withValues(alpha: 0.1),
+                                      ),
+                                    ),
+                                  ],
+                                  minY: 0,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: List.generate(7, (i) {
+                                final day = last7Days[i];
+                                return Text(
+                                  [
+                                    'Sen',
+                                    'Sel',
+                                    'Rab',
+                                    'Kam',
+                                    'Jum',
+                                    'Sab',
+                                    'Min',
+                                  ][day.weekday - 1],
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey[600],
+                                  ),
+                                );
+                              }),
+                            ),
+                          ],
+                        ),
+                      )
+                      .animate(delay: 300.ms)
+                      .fadeIn(duration: 400.ms)
+                      .slideY(begin: 0.1, end: 0),
                   const SizedBox(height: Spacing.lg),
                   // Recent Transactions
                   Container(
@@ -296,7 +394,11 @@ class HomeScreen extends ConsumerWidget {
                       color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(Radii.lg),
                       boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: .05), blurRadius: 10, offset: const Offset(0, 4)),
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: .05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
                       ],
                     ),
                     child: Column(
@@ -305,10 +407,18 @@ class HomeScreen extends ConsumerWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Transaksi Terbaru', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+                            Text(
+                              'Transaksi Terbaru',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             TextButton(
                               onPressed: () => context.go('/app/transactions'),
-                              child: const Text('Lihat Semua', style: TextStyle(fontSize: 12)),
+                              child: const Text(
+                                'Lihat Semua',
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ),
                           ],
                         ),
@@ -324,18 +434,32 @@ class HomeScreen extends ConsumerWidget {
                             final t = entry.value;
                             final catName = cats
                                 .whereType<AppCategory>()
-                                .firstWhere((c) => c.id == t.categoryId, orElse: () => const AppCategory(id: '', name: 'Lainnya', type: CategoryType.expense))
+                                .firstWhere(
+                                  (c) => c.id == t.categoryId,
+                                  orElse: () => const AppCategory(
+                                    id: '',
+                                    name: 'Lainnya',
+                                    type: CategoryType.expense,
+                                  ),
+                                )
                                 .name;
                             final isIncome = t.type.name == 'income';
-                            final amountTxt = (isIncome ? '+' : '-') + formatRupiah(t.amount).replaceFirst('Rp ', '');
+                            final amountTxt =
+                                (isIncome ? '+' : '-') +
+                                formatRupiah(t.amount).replaceFirst('Rp ', '');
                             return TransactionTile(
-                              title: t.note ?? 'Transaksi',
-                              subtitle: '$catName • ${formatDateShort(t.date)}',
-                              amountText: amountTxt,
-                              isIncome: isIncome,
-                              onTap: () => context.push('/app/transactions/${t.id}/edit'),
-                            )
-                                .animate(delay: Duration(milliseconds: 60 * index))
+                                  title: t.note ?? 'Transaksi',
+                                  subtitle:
+                                      '$catName • ${formatDateShort(t.date)}',
+                                  amountText: amountTxt,
+                                  isIncome: isIncome,
+                                  onTap: () => context.push(
+                                    '/app/transactions/${t.id}/edit',
+                                  ),
+                                )
+                                .animate(
+                                  delay: Duration(milliseconds: 60 * index),
+                                )
                                 .fadeIn(duration: 300.ms)
                                 .slideY(begin: 0.06, end: 0, duration: 300.ms);
                           }),
@@ -352,7 +476,12 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-Widget _buildQuickStat({required IconData icon, required String label, required String amount, required Color color}) {
+Widget _buildQuickStat({
+  required IconData icon,
+  required String label,
+  required String amount,
+  required Color color,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8),
     child: Column(
@@ -362,13 +491,23 @@ Widget _buildQuickStat({required IconData icon, required String label, required 
           children: [
             Icon(icon, size: 16, color: color.withValues(alpha: 0.9)),
             const SizedBox(width: 4),
-            Text(label, style: TextStyle(fontSize: 11, color: color.withValues(alpha: 0.9))),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                color: color.withValues(alpha: 0.9),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 4),
         Text(
           amount,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
           overflow: TextOverflow.ellipsis,
         ),
       ],
@@ -410,7 +549,11 @@ Widget _buildActionButton({
           const SizedBox(width: 10),
           Text(
             label,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
           ),
         ],
       ),
@@ -463,7 +606,11 @@ Widget _buildStatCard({
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 12, color: Colors.grey[700], fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -471,7 +618,11 @@ Widget _buildStatCard({
         const SizedBox(height: 14),
         Text(
           value,
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: color),
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
           overflow: TextOverflow.ellipsis,
         ),
       ],

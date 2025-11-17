@@ -118,14 +118,14 @@ lib/data/providers/theme_provider.dart
 **Fokus:** Halaman profil, autentikasi, dan manajemen akun
 
 #### ✅ Tugas Utama:
-- [ ] Menyempurnakan halaman **Profile** dengan semua informasi user
-- [ ] Implementasi fitur edit profile (nama, email, foto profil)
-- [ ] Membuat halaman **Login** yang lengkap dengan validasi
-- [ ] Membuat halaman **Register** dengan konfirmasi password
-- [ ] Implementasi forgot password / reset password
-- [ ] Menambahkan fitur change password di settings
-- [ ] Implementasi logout dengan konfirmasi
-- [ ] Membuat halaman About App dan Privacy Policy
+- [x] Menyempurnakan halaman **Profile** dengan semua informasi user
+- [x] Implementasi fitur edit profile (nama, email, foto profil)
+- [x] Membuat halaman **Login** yang lengkap dengan validasi
+- [x] Membuat halaman **Register** dengan konfirmasi password
+- [x] Implementasi forgot password / reset password
+- [x] Menambahkan fitur change password di settings
+- [x] Implementasi logout dengan konfirmasi
+- [x] Membuat halaman About App dan Privacy Policy
 
 #### 📦 File yang Dikerjakan:
 ```

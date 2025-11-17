@@ -7,7 +7,8 @@ class FirebaseTransactionsRepository implements ITransactionsRepository {
   final String _userId;
   FirebaseTransactionsRepository(this._db, this._userId);
 
-  CollectionReference<Map<String, dynamic>> get _col => _db.collection('users').doc(_userId).collection('transactions');
+  CollectionReference<Map<String, dynamic>> get _col =>
+      _db.collection('users').doc(_userId).collection('transactions');
 
   @override
   Future<List<AppTransaction>> getAll() async {

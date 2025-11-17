@@ -14,8 +14,14 @@ class FirebaseAuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> register({required String email, required String password}) async {
-    await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<void> register({
+    required String email,
+    required String password,
+  }) async {
+    await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   @override

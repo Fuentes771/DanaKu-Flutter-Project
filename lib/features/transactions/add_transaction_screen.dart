@@ -11,7 +11,8 @@ class AddTransactionScreen extends ConsumerStatefulWidget {
   final TransactionType? initialType;
 
   @override
-  ConsumerState<AddTransactionScreen> createState() => _AddTransactionScreenState();
+  ConsumerState<AddTransactionScreen> createState() =>
+      _AddTransactionScreenState();
 }
 
 class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
@@ -37,7 +38,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   Future<void> _save() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    final amount = int.tryParse(_amountCtrl.text.replaceAll('.', '').replaceAll(',', ''));
+    final amount = int.tryParse(
+      _amountCtrl.text.replaceAll('.', '').replaceAll(',', ''),
+    );
     if (amount == null) return;
     final id = DateTime.now().microsecondsSinceEpoch.toString();
     final tx = AppTransaction(
@@ -56,7 +59,15 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final catsAsync = ref.watch(categoriesProvider);
-    final cats = (catsAsync.value ?? []).where((c) => (c.type == CategoryType.expense && _type == TransactionType.expense) || (c.type == CategoryType.income && _type == TransactionType.income)).toList();
+    final cats = (catsAsync.value ?? [])
+        .where(
+          (c) =>
+              (c.type == CategoryType.expense &&
+                  _type == TransactionType.expense) ||
+              (c.type == CategoryType.income &&
+                  _type == TransactionType.income),
+        )
+        .toList();
     _categoryId ??= cats.isNotEmpty ? cats.first.id : null;
 
     return Scaffold(
@@ -71,8 +82,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 initialValue: _type,
                 decoration: const InputDecoration(labelText: 'Tipe'),
                 items: const [
-                  DropdownMenuItem(value: TransactionType.expense, child: Text('Pengeluaran')),
-                  DropdownMenuItem(value: TransactionType.income, child: Text('Pemasukan')),
+                  DropdownMenuItem(
+                    value: TransactionType.expense,
+                    child: Text('Pengeluaran'),
+                  ),
+                  DropdownMenuItem(
+                    value: TransactionType.income,
+                    child: Text('Pemasukan'),
+                  ),
                 ],
                 onChanged: (v) => setState(() {
                   _type = v ?? TransactionType.expense;
@@ -83,7 +100,11 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               DropdownButtonFormField<String>(
                 initialValue: _categoryId,
                 decoration: const InputDecoration(labelText: 'Kategori'),
-                items: cats.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
+                items: cats
+                    .map(
+                      (c) => DropdownMenuItem(value: c.id, child: Text(c.name)),
+                    )
+                    .toList(),
                 onChanged: (v) => setState(() => _categoryId = v),
               ),
               const SizedBox(height: 12),
@@ -94,13 +115,19 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   prefixText: 'Rp ',
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly, RupiahInputFormatter()],
-                validator: (v) => (v == null || v.isEmpty) ? 'Nominal wajib diisi' : null,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  RupiahInputFormatter(),
+                ],
+                validator: (v) =>
+                    (v == null || v.isEmpty) ? 'Nominal wajib diisi' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _noteCtrl,
-                decoration: const InputDecoration(labelText: 'Catatan (opsional)'),
+                decoration: const InputDecoration(
+                  labelText: 'Catatan (opsional)',
+                ),
               ),
               const SizedBox(height: 12),
               Row(
@@ -117,7 +144,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                       if (picked != null) setState(() => _date = picked);
                     },
                     child: const Text('Pilih'),
-                  )
+                  ),
                 ],
               ),
               const Spacer(),
@@ -127,7 +154,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   onPressed: _save,
                   child: const Text('Simpan'),
                 ),
-              )
+              ),
             ],
           ),
         ),
