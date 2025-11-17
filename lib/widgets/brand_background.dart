@@ -26,32 +26,16 @@ class BrandBackground extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: -60,
-          left: -30,
-          child: _circle(220, Colors.white.withValues(alpha: .06)),
-        ),
-        Positioned(
-          bottom: -80,
-          right: -20,
-          child: _circle(280, Colors.white.withValues(alpha: .05)),
-        ),
+  Positioned(top: -60, left: -30, child: _circle(220, Colors.white.withValues(alpha: .06))),
+  Positioned(bottom: -80, right: -20, child: _circle(280, Colors.white.withValues(alpha: .05))),
         if (child != null) Positioned.fill(child: child!),
       ],
     );
   }
 
-  Widget _circle(double size, Color color) =>
-      Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-          )
-          .animate()
-          .fadeIn(duration: 600.ms)
-          .scale(
-            begin: const Offset(.95, .95),
-            end: const Offset(1, 1),
-            duration: 800.ms,
-          );
+  Widget _circle(double size, Color color) => Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      ).animate().fadeIn(duration: 600.ms).scale(begin: const Offset(.95, .95), end: const Offset(1, 1), duration: 800.ms);
 }

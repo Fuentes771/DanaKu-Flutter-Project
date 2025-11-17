@@ -1,3 +1,19 @@
+/.dart_tool/
+.packages
+/.idea/
+/.vscode/
+/build/
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+/ios/Pods/
+/android/.gradle/
+pubspec.lock
+*.iml
+*.log
+.DS_Store
+/.flutter-plugins
+/.flutter-plugins-dependencies
+/.metadata
 # Miscellaneous
 *.class
 *.log

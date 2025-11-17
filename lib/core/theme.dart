@@ -25,43 +25,29 @@ class FinanceColors extends ThemeExtension<FinanceColors> {
     Color? accentGradientStart,
     Color? accentGradientEnd,
   }) => FinanceColors(
-    income: income ?? this.income,
-    expense: expense ?? this.expense,
-    warning: warning ?? this.warning,
-    accentGradientStart: accentGradientStart ?? this.accentGradientStart,
-    accentGradientEnd: accentGradientEnd ?? this.accentGradientEnd,
-  );
+        income: income ?? this.income,
+        expense: expense ?? this.expense,
+        warning: warning ?? this.warning,
+        accentGradientStart: accentGradientStart ?? this.accentGradientStart,
+        accentGradientEnd: accentGradientEnd ?? this.accentGradientEnd,
+      );
 
   @override
-  ThemeExtension<FinanceColors> lerp(
-    ThemeExtension<FinanceColors>? other,
-    double t,
-  ) {
+  ThemeExtension<FinanceColors> lerp(ThemeExtension<FinanceColors>? other, double t) {
     if (other is! FinanceColors) return this;
     return FinanceColors(
       income: Color.lerp(income, other.income, t)!,
       expense: Color.lerp(expense, other.expense, t)!,
       warning: Color.lerp(warning, other.warning, t)!,
-      accentGradientStart: Color.lerp(
-        accentGradientStart,
-        other.accentGradientStart,
-        t,
-      )!,
-      accentGradientEnd: Color.lerp(
-        accentGradientEnd,
-        other.accentGradientEnd,
-        t,
-      )!,
+      accentGradientStart: Color.lerp(accentGradientStart, other.accentGradientStart, t)!,
+      accentGradientEnd: Color.lerp(accentGradientEnd, other.accentGradientEnd, t)!,
     );
   }
 }
 
 ThemeData buildLightTheme() {
   final base = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF0BA28A),
-      brightness: Brightness.light,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0BA28A), brightness: Brightness.light),
     useMaterial3: true,
   );
   final textTheme = GoogleFonts.poppinsTextTheme(base.textTheme);
@@ -72,9 +58,7 @@ ThemeData buildLightTheme() {
       foregroundColor: base.colorScheme.onSurface,
       centerTitle: false,
       elevation: 0,
-      titleTextStyle: textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.w700,
-      ),
+      titleTextStyle: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -102,9 +86,7 @@ ThemeData buildLightTheme() {
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: base.colorScheme.surface,
       indicatorColor: base.colorScheme.primaryContainer,
-      labelTextStyle: WidgetStateProperty.all(
-        textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
-      ),
+      labelTextStyle: WidgetStateProperty.all(textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600)),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
@@ -129,10 +111,7 @@ ThemeData buildLightTheme() {
 
 ThemeData buildDarkTheme() {
   final base = ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF0BA28A),
-      brightness: Brightness.dark,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0BA28A), brightness: Brightness.dark),
     useMaterial3: true,
   );
   final textTheme = GoogleFonts.poppinsTextTheme(base.textTheme);
@@ -143,9 +122,7 @@ ThemeData buildDarkTheme() {
       foregroundColor: base.colorScheme.onSurface,
       centerTitle: false,
       elevation: 0,
-      titleTextStyle: textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.w700,
-      ),
+      titleTextStyle: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -173,9 +150,7 @@ ThemeData buildDarkTheme() {
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: base.colorScheme.surface,
       indicatorColor: base.colorScheme.primaryContainer,
-      labelTextStyle: WidgetStateProperty.all(
-        textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
-      ),
+      labelTextStyle: WidgetStateProperty.all(textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600)),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {

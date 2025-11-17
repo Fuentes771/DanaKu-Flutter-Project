@@ -14,26 +14,14 @@ class NotificationsScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(Spacing.lg),
             children: [
-              Text(
-                'Notifikasi',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              Text('Notifikasi', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight.w800)),
               const SizedBox(height: Spacing.lg),
               Container(
                 padding: const EdgeInsets.all(Spacing.lg),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(Radii.lg),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: .1),
-                      blurRadius: 18,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: .1), blurRadius: 18, offset: const Offset(0, 10))],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,11 +43,7 @@ class NotificationsScreen extends StatelessWidget {
                             await LocalNotifications.scheduleTestNotification();
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Notifikasi akan tampil dalam 5 detik',
-                                  ),
-                                ),
+                                const SnackBar(content: Text('Notifikasi akan tampil dalam 5 detik')),
                               );
                             }
                           },

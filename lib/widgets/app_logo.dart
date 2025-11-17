@@ -10,18 +10,17 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logo = SvgPicture.asset('assets/logo.svg', width: size, height: size);
+    final logo = SvgPicture.asset(
+      'assets/logo.svg',
+      width: size,
+      height: size,
+    );
 
     if (!animated) return logo;
 
     return logo
         .animate()
         .fadeIn(duration: 500.ms, curve: Curves.easeOut)
-        .scale(
-          begin: const Offset(0.8, 0.8),
-          end: const Offset(1, 1),
-          duration: 600.ms,
-          curve: Curves.easeOutBack,
-        );
+        .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1), duration: 600.ms, curve: Curves.easeOutBack);
   }
 }

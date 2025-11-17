@@ -22,10 +22,7 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<void> register({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> register({required String email, required String password}) async {
     // In a real app you would store user securely. Here we just mark logged in.
     await _prefs.setBool(_keyLoggedIn, true);
   }

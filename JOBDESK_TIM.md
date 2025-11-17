@@ -9,9 +9,11 @@
 ## 👥 Pembagian Tim & Tanggung Jawab
 
 ### **M SULTHON ALFARIZKY: Project Leader & Backend Developer**
+
 **Fokus:** Koordinasi tim, integrasi Firebase, dan manajemen data
 
 #### ✅ Tugas Utama:
+
 - [ ] Mengkoordinasikan progres tim secara keseluruhan
 - [ ] Mengintegrasikan Firebase Authentication (login/register dengan email)
 - [ ] Mengintegrasikan Cloud Firestore untuk menyimpan data transaksi
@@ -20,6 +22,7 @@
 - [ ] Membuat dokumentasi API dan cara penggunaan Firebase
 
 #### 📦 File yang Dikerjakan:
+
 ```
 lib/data/repositories/firebase_transaction_repository.dart
 lib/data/repositories/firebase_category_repository.dart
@@ -28,15 +31,18 @@ lib/core/services/firebase_service.dart
 ```
 
 #### 🎯 Target:
+
 - Backend terintegrasi penuh dengan Firebase dalam 2 minggu
 - Semua CRUD operations berfungsi dengan database cloud
 
 ---
 
-### **ELISA ARYANI: UI/UX Developer - Features**
+### **Anggota 2: UI/UX Developer - Features**
+
 **Fokus:** Pengembangan fitur transaksi dan kategori
 
 #### ✅ Tugas Utama:
+
 - [ ] Menyempurnakan halaman **Transaksi** (tambah, edit, hapus transaksi)
 - [ ] Implementasi filter dan pencarian transaksi
 - [ ] Memperbaiki form input transaksi dengan validasi
@@ -45,6 +51,7 @@ lib/core/services/firebase_service.dart
 - [ ] Membuat widget reusable untuk input form
 
 #### 📦 File yang Dikerjakan:
+
 ```
 lib/features/transactions/transaction_screen.dart
 lib/features/transactions/transaction_form_screen.dart
@@ -55,15 +62,18 @@ lib/widgets/category_icon_picker.dart
 ```
 
 #### 🎯 Target:
+
 - UI transaksi lengkap dengan semua fitur CRUD
 - User experience yang smooth dan intuitif
 
 ---
 
-### **PUAN AKEYLA MAHARANI MUNANJI : Analytics & Visualization Developer**
+### **Anggota 3: Analytics & Visualization Developer**
+
 **Fokus:** Grafik, laporan, dan analisis keuangan
 
 #### ✅ Tugas Utama:
+
 - [ ] Menyempurnakan halaman **Analisis** dengan lebih banyak chart
 - [ ] Menambahkan grafik bar untuk perbandingan bulanan
 - [ ] Implementasi laporan PDF (export ke PDF)
@@ -72,6 +82,7 @@ lib/widgets/category_icon_picker.dart
 - [ ] Implementasi prediksi pengeluaran berdasarkan history
 
 #### 📦 File yang Dikerjakan:
+
 ```
 lib/features/analytics/analytics_screen.dart
 lib/features/analytics/widgets/bar_chart_widget.dart
@@ -82,15 +93,18 @@ lib/core/utils/date_filter_helper.dart
 ```
 
 #### 🎯 Target:
+
 - Dashboard analytics yang informatif dan visual menarik
 - Fitur export laporan berfungsi dengan baik
 
 ---
 
-### **NABILA SALWA ALGHAIDA: Notification & Settings Developer**
+### **Anggota 4: Notification & Settings Developer**
+
 **Fokus:** Notifikasi, pengaturan, dan fitur tambahan
 
 #### ✅ Tugas Utama:
+
 - [ ] Implementasi sistem **notifikasi pengingat** (tagihan, budget limit)
 - [ ] Membuat halaman **Settings/Pengaturan** lengkap
 - [ ] Implementasi fitur budget/anggaran bulanan dengan alert
@@ -99,6 +113,7 @@ lib/core/utils/date_filter_helper.dart
 - [ ] Membuat fitur backup & restore data lokal
 
 #### 📦 File yang Dikerjakan:
+
 ```
 lib/features/notifications/notifications_screen.dart
 lib/features/settings/settings_screen.dart
@@ -109,25 +124,29 @@ lib/data/providers/theme_provider.dart
 ```
 
 #### 🎯 Target:
+
 - Sistem notifikasi berfungsi dengan baik
 - Settings page yang lengkap dan fungsional
 
 ---
 
-### **CINDY PUJI LESTARI: Profile & Authentication Developer**
+### **Anggota 5: Profile & Authentication Developer**
+
 **Fokus:** Halaman profil, autentikasi, dan manajemen akun
 
 #### ✅ Tugas Utama:
-- [x] Menyempurnakan halaman **Profile** dengan semua informasi user
-- [x] Implementasi fitur edit profile (nama, email, foto profil)
-- [x] Membuat halaman **Login** yang lengkap dengan validasi
-- [x] Membuat halaman **Register** dengan konfirmasi password
-- [x] Implementasi forgot password / reset password
-- [x] Menambahkan fitur change password di settings
-- [x] Implementasi logout dengan konfirmasi
-- [x] Membuat halaman About App dan Privacy Policy
+
+- [ ] Menyempurnakan halaman **Profile** dengan semua informasi user
+- [ ] Implementasi fitur edit profile (nama, email, foto profil)
+- [ ] Membuat halaman **Login** yang lengkap dengan validasi
+- [ ] Membuat halaman **Register** dengan konfirmasi password
+- [ ] Implementasi forgot password / reset password
+- [ ] Menambahkan fitur change password di settings
+- [ ] Implementasi logout dengan konfirmasi
+- [ ] Membuat halaman About App dan Privacy Policy
 
 #### 📦 File yang Dikerjakan:
+
 ```
 lib/features/profile/profile_screen.dart
 lib/features/profile/edit_profile_screen.dart
@@ -140,6 +159,7 @@ lib/widgets/profile_avatar.dart
 ```
 
 #### 🎯 Target:
+
 - Sistem autentikasi lengkap dan aman
 - Profile management yang user-friendly
 - Form validation yang proper
@@ -149,60 +169,67 @@ lib/widgets/profile_avatar.dart
 ## 📅 Timeline Pengerjaan (7 Minggu)
 
 ### **Minggu 1: Setup & Preparation**
-| Anggota | Tugas Minggu Ini |
-|---------|------------------|
-| **M SULTHON ALFARIZKY** | Setup Firebase project, konfigurasi FlutterFire |
-| **ELISA ARYANI** | Analisis UI Transaksi yang ada, buat mockup improvement |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | Research library chart (fl_chart), buat prototype dashboard |
-| **NABILA SALWA ALGHAIDA** | Setup local notifications, research notification patterns |
-| **CINDY PUJI LESTARI** | Perbaiki halaman Login & Register yang sudah ada |
+
+| Anggota                 | Tugas Minggu Ini                                            |
+| ----------------------- | ----------------------------------------------------------- |
+| **M SULTHON ALFARIZKY** | Setup Firebase project, konfigurasi FlutterFire             |
+| **Anggota 2**           | Analisis UI Transaksi yang ada, buat mockup improvement     |
+| **Anggota 3**           | Research library chart (fl_chart), buat prototype dashboard |
+| **Anggota 4**           | Setup local notifications, research notification patterns   |
+| **Anggota 5**           | Perbaiki halaman Login & Register yang sudah ada            |
 
 ### **Minggu 2: Core Development - Phase 1**
-| Anggota | Tugas Minggu Ini |
-|---------|------------------|
+
+| Anggota                 | Tugas Minggu Ini                                     |
+| ----------------------- | ---------------------------------------------------- |
 | **M SULTHON ALFARIZKY** | Implementasi Firebase Auth (login, register, logout) |
-| **ELISA ARYANI** | Buat halaman Transaction Form (tambah transaksi) |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | Implementasi Pie Chart di halaman Analytics |
-| **NABILA SALWA ALGHAIDA** | Buat halaman Settings dengan basic options |
-| **CINDY PUJI LESTARI** | Implementasi Edit Profile & Upload Foto |
+| **Anggota 2**           | Buat halaman Transaction Form (tambah transaksi)     |
+| **Anggota 3**           | Implementasi Pie Chart di halaman Analytics          |
+| **Anggota 4**           | Buat halaman Settings dengan basic options           |
+| **Anggota 5**           | Implementasi Edit Profile & Upload Foto              |
 
 ### **Minggu 3: Core Development - Phase 2**
-| Anggota | Tugas Minggu Ini |
-|---------|------------------|
-| **M SULTHON ALFARIZKY** | Implementasi Firestore untuk Transactions |
-| **ELISA ARYANI** | Buat halaman Transaction Detail & Edit |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | Implementasi Line Chart untuk trend bulanan |
-| **NABILA SALWA ALGHAIDA** | Implementasi notifikasi reminder transaksi |
-| **CINDY PUJI LESTARI** | Buat halaman Forgot Password |
+
+| Anggota                 | Tugas Minggu Ini                            |
+| ----------------------- | ------------------------------------------- |
+| **M SULTHON ALFARIZKY** | Implementasi Firestore untuk Transactions   |
+| **Anggota 2**           | Buat halaman Transaction Detail & Edit      |
+| **Anggota 3**           | Implementasi Line Chart untuk trend bulanan |
+| **Anggota 4**           | Implementasi notifikasi reminder transaksi  |
+| **Anggota 5**           | Buat halaman Forgot Password                |
 
 ### **Minggu 4: Feature Completion**
-| Anggota | Tugas Minggu Ini |
-|---------|------------------|
+
+| Anggota                 | Tugas Minggu Ini                               |
+| ----------------------- | ---------------------------------------------- |
 | **M SULTHON ALFARIZKY** | Implementasi Firestore untuk Categories & Sync |
-| **ELISA ARYANI** | Implementasi filter & search transaksi |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | Buat fitur export PDF untuk laporan |
-| **NABILA SALWA ALGHAIDA** | Implementasi Budget Alert & Notification |
-| **CINDY PUJI LESTARI** | Buat halaman About & Privacy Policy |
+| **Anggota 2**           | Implementasi filter & search transaksi         |
+| **Anggota 3**           | Buat fitur export PDF untuk laporan            |
+| **Anggota 4**           | Implementasi Budget Alert & Notification       |
+| **Anggota 5**           | Buat halaman About & Privacy Policy            |
 
 ### **Minggu 5: Integration & Enhancement**
-| Anggota | Tugas Minggu Ini |
-|---------|------------------|
-| **M SULTHON ALFARIZKY** | Testing integrasi Firebase, fix bugs |
-| **ELISA ARYANI** | Polish UI Transaksi, tambah animasi |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | Tambah Bar Chart & lebih banyak insights |
-| **NABILA SALWA ALGHAIDA** | Implementasi Dark Mode toggle |
-| **CINDY PUJI LESTARI** | Polish UI Profile & Auth screens |
+
+| Anggota                 | Tugas Minggu Ini                         |
+| ----------------------- | ---------------------------------------- |
+| **M SULTHON ALFARIZKY** | Testing integrasi Firebase, fix bugs     |
+| **Anggota 2**           | Polish UI Transaksi, tambah animasi      |
+| **Anggota 3**           | Tambah Bar Chart & lebih banyak insights |
+| **Anggota 4**           | Implementasi Dark Mode toggle            |
+| **Anggota 5**           | Polish UI Profile & Auth screens         |
 
 ### **Minggu 6: Testing & Bug Fixing**
-| Tugas | PIC |
-|-------|-----|
-| Unit Testing | Semua anggota untuk bagiannya masing-masing |
-| Integration Testing | M SULTHON ALFARIZKY & 2 |
-| UI/UX Testing | PUAN AKEYLA MAHARANI MUNANJI  & 5 |
-| Performance Testing | NABILA SALWA ALGHAIDA |
-| Bug Fixing | Semua anggota (sesuai domain) |
+
+| Tugas               | PIC                                         |
+| ------------------- | ------------------------------------------- |
+| Unit Testing        | Semua anggota untuk bagiannya masing-masing |
+| Integration Testing | M SULTHON ALFARIZKY & 2                     |
+| UI/UX Testing       | Anggota 3 & 5                               |
+| Performance Testing | Anggota 4                                   |
+| Bug Fixing          | Semua anggota (sesuai domain)               |
 
 ### **Minggu 7: Finalization & Release Preparation**
+
 - Polish semua UI/UX
 - Final testing di real device
 - Dokumentasi lengkap (README, user guide)
@@ -214,22 +241,26 @@ lib/widgets/profile_avatar.dart
 ## 🔄 Alur Kolaborasi
 
 ### **📞 Daily Standup (Online/WhatsApp)**
+
 **Waktu:** Setiap hari pukul 19:00 WIB (Maksimal 15 menit)
 
 **Format Update (Setiap Anggota):**
+
 1. ✅ **Yesterday:** Apa yang sudah diselesaikan kemarin?
 2. 🎯 **Today:** Apa yang akan dikerjakan hari ini?
 3. 🚫 **Blockers:** Ada kendala/masalah yang menghambat?
 
 **Contoh Update:**
+
 ```
-[Nama] - ELISA ARYANI:
+[Nama] - Anggota 2:
 ✅ Yesterday: Selesai bikin Transaction Form UI
 🎯 Today: Implementasi validasi form & save data
 🚫 Blockers: Butuh format model Transaction dari M SULTHON ALFARIZKY
 ```
 
 **Aturan Standup:**
+
 - Jika ada blocker yang urgent, langsung diskusi setelah standup
 - Jika tidak bisa join, kirim update tertulis sebelum jam 19:00
 - Tidak ada standup di hari Minggu
@@ -237,30 +268,29 @@ lib/widgets/profile_avatar.dart
 ---
 
 ### **📊 Weekly Review Meeting**
+
 **Waktu:** Setiap Sabtu pukul 14:00 WIB (60-90 menit)
 
 **Agenda Meeting:**
+
 1. **Demo Time** (30 menit)
    - Setiap anggota demo fitur yang sudah selesai
    - Screencast atau live demo dari emulator
-   
 2. **Progress Review** (15 menit)
    - Review checklist tugas yang sudah selesai
    - Update progress board (Trello/GitHub Projects)
-   
 3. **Problem Discussion** (15 menit)
    - Diskusi masalah teknis yang dihadapi
    - Brainstorming solusi bersama
-   
 4. **Planning Next Week** (15 menit)
    - Tentukan prioritas minggu depan
    - Assign tugas tambahan jika ada
-   
 5. **Knowledge Sharing** (15 menit - Optional)
    - Share tips/tricks yang ditemukan
    - Code review bersama untuk best practice
 
 **Action Items:**
+
 - Project Leader buat meeting notes
 - Screenshot/record demo untuk dokumentasi
 - Update timeline jika ada perubahan
@@ -270,6 +300,7 @@ lib/widgets/profile_avatar.dart
 ### **🔀 Git Workflow (Wajib Diikuti!)**
 
 #### **1️⃣ Sebelum Mulai Coding:**
+
 ```bash
 # Update branch main
 git checkout main
@@ -280,6 +311,7 @@ git checkout -b feature/nama-fitur-anda
 ```
 
 #### **2️⃣ Saat Coding:**
+
 ```bash
 # Commit berkala (minimal 1x sehari)
 git add .
@@ -290,6 +322,7 @@ git push origin feature/nama-fitur-anda
 ```
 
 #### **3️⃣ Setelah Fitur Selesai:**
+
 1. Push final commit
 2. Buka GitHub → Create Pull Request
 3. Isi deskripsi PR dengan:
@@ -300,7 +333,9 @@ git push origin feature/nama-fitur-anda
 5. Tunggu approval
 
 #### **4️⃣ Code Review Process:**
+
 **Reviewer harus cek:**
+
 - ✅ Code berjalan tanpa error
 - ✅ Tidak ada warning dari `flutter analyze`
 - ✅ Naming convention konsisten
@@ -308,10 +343,12 @@ git push origin feature/nama-fitur-anda
 - ✅ Tidak ada hardcoded values (gunakan constants)
 
 **Approve PR jika:**
+
 - Semua checklist di atas terpenuhi
 - Tidak ada conflict dengan main branch
 
 #### **5️⃣ Merge ke Main:**
+
 - Gunakan "Squash and Merge" untuk history yang bersih
 - Hapus branch remote setelah merge
 - Hapus branch lokal: `git branch -d feature/nama-fitur`
@@ -321,6 +358,7 @@ git push origin feature/nama-fitur-anda
 ### **📝 Naming Convention**
 
 #### **Branch Names:**
+
 ```
 feature/nama-fitur          # Fitur baru
 fix/nama-bug                # Bug fix
@@ -330,6 +368,7 @@ test/nama-test              # Tambah/update test
 ```
 
 **Contoh Branch Names:**
+
 ```
 feature/transaction-form
 feature/analytics-pie-chart
@@ -342,9 +381,11 @@ test/transaction-widget-test
 ```
 
 #### **Commit Messages:**
+
 Format: `type: deskripsi singkat`
 
 **Types:**
+
 - `feat`: Fitur baru
 - `fix`: Bug fix
 - `refactor`: Refactoring code
@@ -354,6 +395,7 @@ Format: `type: deskripsi singkat`
 - `chore`: Maintenance (update dependencies, dll)
 
 **Contoh Commit Messages:**
+
 ```bash
 git commit -m "feat: add transaction form with validation"
 git commit -m "fix: resolve null pointer in analytics chart"
@@ -365,6 +407,7 @@ git commit -m "chore: update flutter_animate to v4.5.0"
 ```
 
 #### **Pull Request Title:**
+
 ```
 [Type] Deskripsi Singkat
 
@@ -375,6 +418,7 @@ Contoh:
 ```
 
 #### **File Naming Convention:**
+
 ```
 Dart Files (lowercase with underscore):
 - transaction_form_screen.dart
@@ -397,11 +441,13 @@ Variables & Functions (camelCase):
 ## 📞 Komunikasi Tim
 
 ### **Channel Komunikasi:**
+
 - **WhatsApp Group:** Komunikasi sehari-hari
 - **GitHub Issues:** Bug tracking dan feature request
 - **Google Meet/Zoom:** Weekly review dan diskusi teknis
 
 ### **Response Time:**
+
 - Urgent: < 1 jam
 - Normal: < 6 jam
 - Low priority: < 24 jam
@@ -413,6 +459,7 @@ Variables & Functions (camelCase):
 ### **📋 Checklist - Task Dianggap SELESAI Jika:**
 
 #### **1. Code Quality:**
+
 - [ ] Code sudah di-commit dengan commit message yang jelas
 - [ ] Code sudah di-push ke branch feature
 - [ ] Tidak ada error saat run aplikasi
@@ -421,6 +468,7 @@ Variables & Functions (camelCase):
 - [ ] Tidak ada TODO comments yang belum diselesaikan
 
 #### **2. Functionality:**
+
 - [ ] Fitur berfungsi sesuai requirement
 - [ ] Sudah di-test secara manual di emulator/device
 - [ ] Edge cases sudah di-handle (null, empty, error state)
@@ -428,6 +476,7 @@ Variables & Functions (camelCase):
 - [ ] Error handling sudah proper (toast/snackbar/dialog)
 
 #### **3. UI/UX:**
+
 - [ ] UI sesuai dengan design system (colors, spacing, shadows)
 - [ ] Responsive untuk berbagai ukuran layar
 - [ ] Ada feedback untuk user action (button press, loading, dll)
@@ -435,18 +484,21 @@ Variables & Functions (camelCase):
 - [ ] Text tidak terpotong atau overflow
 
 #### **4. Testing:**
+
 - [ ] Manual testing sudah dilakukan
 - [ ] Unit test untuk business logic (jika applicable)
 - [ ] Widget test untuk UI components (minimal untuk screen utama)
 - [ ] Test coverage untuk file tersebut minimal 60%
 
 #### **5. Documentation:**
+
 - [ ] Comments untuk logic yang kompleks
 - [ ] Function documentation (jika public/exported)
 - [ ] README di-update (jika ada perubahan setup/configuration)
 - [ ] Screenshot/video demo tersimpan (untuk fitur UI)
 
 #### **6. Code Review:**
+
 - [ ] Pull Request sudah dibuat dengan deskripsi lengkap
 - [ ] PR sudah di-assign ke reviewer
 - [ ] Feedback dari reviewer sudah di-address
@@ -454,6 +506,7 @@ Variables & Functions (camelCase):
 - [ ] Tidak ada merge conflict dengan main branch
 
 #### **7. Integration:**
+
 - [ ] Pull Request sudah di-merge ke main
 - [ ] Branch feature sudah di-delete (remote & local)
 - [ ] Tim sudah di-inform via WhatsApp Group
@@ -462,6 +515,7 @@ Variables & Functions (camelCase):
 ---
 
 ### **🚫 Task BELUM Selesai Jika:**
+
 - ❌ Ada error yang belum di-fix
 - ❌ Belum di-test sama sekali
 - ❌ Code belum di-review
@@ -473,15 +527,18 @@ Variables & Functions (camelCase):
 ### **⚠️ Special Cases:**
 
 **Untuk Bug Fix:**
+
 - Tambahkan test case yang reproduce bug tersebut
 - Pastikan bug tidak muncul lagi setelah fix
 
 **Untuk Refactoring:**
+
 - Pastikan functionality tidak berubah
 - Semua test yang ada masih pass
 - Performance tidak menurun
 
 **Untuk Breaking Changes:**
+
 - Diskusikan dengan tim dulu sebelum implement
 - Update semua file yang terpengaruh
 - Update dokumentasi dengan jelas
@@ -493,6 +550,7 @@ Variables & Functions (camelCase):
 ### **📥 Setup Awal (First Time Setup)**
 
 #### **1. Install Flutter SDK**
+
 ```bash
 # Download Flutter SDK dari: https://docs.flutter.dev/get-started/install
 # Extract dan tambahkan ke PATH
@@ -502,6 +560,7 @@ flutter doctor
 ```
 
 **Pastikan checklist ini terpenuhi:**
+
 - ✅ Flutter SDK installed
 - ✅ Android Studio installed (untuk Android)
 - ✅ VS Code atau Android Studio (IDE)
@@ -509,6 +568,7 @@ flutter doctor
 - ✅ Device emulator atau physical device ready
 
 #### **2. Clone Repository**
+
 ```bash
 # Clone dari GitHub
 git clone https://github.com/Fuentes771/DanaKu-Flutter-Project.git
@@ -521,6 +581,7 @@ cd flutter_manajemenkeuangan
 ```
 
 #### **3. Install Dependencies**
+
 ```bash
 # Install semua packages yang dibutuhkan
 flutter pub get
@@ -531,6 +592,7 @@ flutter pub get
 ```
 
 #### **4. Setup IDE (VS Code - Recommended)**
+
 ```bash
 # Install Extensions yang dibutuhkan:
 # 1. Flutter (by Dart Code)
@@ -540,10 +602,12 @@ flutter pub get
 ```
 
 **VS Code Settings (Recommended):**
+
 - Format on Save: Enabled
 - Auto Save: afterDelay (1000ms)
 
 #### **5. Run Aplikasi**
+
 ```bash
 # List available devices
 flutter devices
@@ -559,12 +623,14 @@ flutter run -d chrome
 ```
 
 **Hotkeys saat aplikasi running:**
+
 - `r` - Hot reload (refresh tanpa restart)
 - `R` - Hot restart (restart penuh)
 - `q` - Quit
 - `p` - Show performance overlay
 
 #### **6. Verify Setup**
+
 ```bash
 # Check jika ada issues
 flutter doctor -v
@@ -611,7 +677,7 @@ flutter_manajemenkeuangan/
 │   │   └── providers/          # Riverpod providers
 │   │
 │   ├── features/               # Features (screens & logic)
-│   │   ├── auth/              # 🔐 Authentication (CINDY PUJI LESTARI)
+│   │   ├── auth/              # 🔐 Authentication (Anggota 5)
 │   │   │   ├── login_screen.dart
 │   │   │   ├── register_screen.dart
 │   │   │   └── forgot_password_screen.dart
@@ -620,36 +686,36 @@ flutter_manajemenkeuangan/
 │   │   │   ├── home_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── transactions/      # 💰 Transactions (ELISA ARYANI)
+│   │   ├── transactions/      # 💰 Transactions (Anggota 2)
 │   │   │   ├── transaction_screen.dart
 │   │   │   ├── transaction_form_screen.dart
 │   │   │   ├── transaction_detail_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── categories/        # 📂 Categories (ELISA ARYANI)
+│   │   ├── categories/        # 📂 Categories (Anggota 2)
 │   │   │   ├── categories_screen.dart
 │   │   │   ├── category_form_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── analytics/         # 📊 Analytics (PUAN AKEYLA MAHARANI MUNANJI )
+│   │   ├── analytics/         # 📊 Analytics (Anggota 3)
 │   │   │   ├── analytics_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── notifications/     # 🔔 Notifications (NABILA SALWA ALGHAIDA)
+│   │   ├── notifications/     # 🔔 Notifications (Anggota 4)
 │   │   │   ├── notifications_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── profile/           # 👤 Profile (CINDY PUJI LESTARI)
+│   │   ├── profile/           # 👤 Profile (Anggota 5)
 │   │   │   ├── profile_screen.dart
 │   │   │   ├── edit_profile_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── settings/          # ⚙️ Settings (NABILA SALWA ALGHAIDA)
+│   │   ├── settings/          # ⚙️ Settings (Anggota 4)
 │   │   │   ├── settings_screen.dart
 │   │   │   ├── change_password_screen.dart
 │   │   │   └── about_screen.dart
 │   │   │
-│   │   ├── budget/            # 💵 Budget (NABILA SALWA ALGHAIDA)
+│   │   ├── budget/            # 💵 Budget (Anggota 4)
 │   │   │   ├── budget_screen.dart
 │   │   │   └── widgets/
 │   │   │
@@ -679,13 +745,13 @@ flutter_manajemenkeuangan/
 
 ### **🎯 Domain Mapping per Anggota**
 
-| Anggota | Folder/Files yang Dikerjakan |
-|---------|------------------------------|
-| **M SULTHON ALFARIZKY** | `lib/data/repositories/firebase_*`<br>`lib/core/services/firebase_service.dart` |
-| **ELISA ARYANI** | `lib/features/transactions/`<br>`lib/features/categories/` |
-| **PUAN AKEYLA MAHARANI MUNANJI ** | `lib/features/analytics/`<br>`lib/features/home/widgets/` (dashboard) |
-| **NABILA SALWA ALGHAIDA** | `lib/features/notifications/`<br>`lib/features/settings/`<br>`lib/features/budget/` |
-| **CINDY PUJI LESTARI** | `lib/features/auth/`<br>`lib/features/profile/` |
+| Anggota                 | Folder/Files yang Dikerjakan                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| **M SULTHON ALFARIZKY** | `lib/data/repositories/firebase_*`<br>`lib/core/services/firebase_service.dart`     |
+| **Anggota 2**           | `lib/features/transactions/`<br>`lib/features/categories/`                          |
+| **Anggota 3**           | `lib/features/analytics/`<br>`lib/features/home/widgets/` (dashboard)               |
+| **Anggota 4**           | `lib/features/notifications/`<br>`lib/features/settings/`<br>`lib/features/budget/` |
+| **Anggota 5**           | `lib/features/auth/`<br>`lib/features/profile/`                                     |
 
 ---
 
@@ -731,10 +797,12 @@ git checkout -b new-branch    # Create new branch
 ### **⚡ Productivity Tips**
 
 1. **Hot Reload adalah Teman Terbaik:**
+
    - Tekan `r` untuk hot reload (cepat!)
    - Tekan `R` untuk hot restart (jika hot reload gagal)
 
 2. **Flutter DevTools:**
+
    ```bash
    # Jalankan DevTools untuk debugging
    flutter run
@@ -742,11 +810,13 @@ git checkout -b new-branch    # Create new branch
    ```
 
 3. **VS Code Snippets:**
+
    - `stless` → Generate StatelessWidget
    - `stful` → Generate StatefulWidget
    - `constp` → Generate const constructor
 
 4. **Format Code Otomatis:**
+
    - Shortcut: `Shift + Alt + F` (Windows/Linux)
    - Shortcut: `Shift + Option + F` (Mac)
 
@@ -759,6 +829,7 @@ git checkout -b new-branch    # Create new branch
 ### **🆘 Troubleshooting Common Issues**
 
 **Issue: "Waiting for another flutter command to release the startup lock"**
+
 ```bash
 # Solution:
 killall -9 dart  # Mac/Linux
@@ -766,6 +837,7 @@ taskkill /F /IM dart.exe  # Windows
 ```
 
 **Issue: "Gradle build failed"**
+
 ```bash
 # Solution:
 cd android
@@ -778,6 +850,7 @@ flutter run
 ```
 
 **Issue: "Version solving failed"**
+
 ```bash
 # Solution:
 flutter pub upgrade
@@ -787,6 +860,7 @@ flutter pub get
 ```
 
 **Issue: Hot reload tidak work**
+
 ```bash
 # Solution: Stop app dan run lagi, atau
 # Tekan 'R' untuk hot restart
@@ -797,13 +871,16 @@ flutter pub get
 ### **📞 Butuh Bantuan?**
 
 1. **Check Dokumentasi:**
+
    - Flutter Docs: https://docs.flutter.dev
    - This file: JOBDESK_TIM.md
 
 2. **Tanya di WhatsApp Group:**
+
    - Format: "[HELP] Judul masalah + screenshot error"
 
 3. **Create GitHub Issue:**
+
    - Untuk bug atau feature request formal
 
 4. **Stack Overflow:**
@@ -816,21 +893,25 @@ flutter pub get
 ### **📖 Official Documentation**
 
 #### **Flutter & Dart:**
+
 - 📘 [Flutter Docs](https://docs.flutter.dev/) - Official Flutter documentation
 - 📗 [Dart Language Tour](https://dart.dev/guides/language/language-tour) - Learn Dart basics
 - 📙 [Flutter Cookbook](https://docs.flutter.dev/cookbook) - Common Flutter recipes
 - 📕 [Widget Catalog](https://docs.flutter.dev/development/ui/widgets) - All Flutter widgets
 
 #### **State Management:**
+
 - 🔵 [Riverpod Documentation](https://riverpod.dev/) - Official Riverpod docs
 - 🔵 [Riverpod Examples](https://github.com/rrousselGit/river_pod/tree/master/examples) - Code examples
 
 #### **Backend & Database:**
+
 - 🔥 [Firebase for Flutter](https://firebase.flutter.dev/) - FlutterFire documentation
 - 🔥 [Firebase Console](https://console.firebase.google.com/) - Manage Firebase project
 - 🔥 [Firestore Documentation](https://firebase.google.com/docs/firestore) - Cloud Firestore guide
 
 #### **UI/UX Libraries:**
+
 - 📊 [FL Chart](https://github.com/imaNNeo/fl_chart) - Chart library documentation
 - 🎨 [Google Fonts](https://pub.dev/packages/google_fonts) - Custom fonts package
 - ✨ [Flutter Animate](https://pub.dev/packages/flutter_animate) - Animation library
@@ -840,6 +921,7 @@ flutter pub get
 ### **🎨 Design System Reference**
 
 #### **Color Palette:**
+
 ```dart
 // Primary Colors
 Primary: #0BA28A (Teal) - Main brand color
@@ -864,6 +946,7 @@ Gradient End: #4DD2B9
 ```
 
 #### **Typography:**
+
 ```dart
 Font Family: Default Flutter (Roboto on Android, SF Pro on iOS)
 
@@ -877,6 +960,7 @@ Sizes:
 ```
 
 #### **Spacing:**
+
 ```dart
 Spacing.xs: 4px
 Spacing.sm: 8px
@@ -887,6 +971,7 @@ Spacing.xxl: 48px
 ```
 
 #### **Border Radius:**
+
 ```dart
 Radii.sm: 8px
 Radii.md: 12px
@@ -899,6 +984,7 @@ Radii.xl: 24px
 ### **💡 Code Examples to Study**
 
 #### **📂 Reusable Widgets:**
+
 ```dart
 lib/widgets/brand_background.dart     // Gradient background dengan circles
 lib/widgets/app_logo.dart             // Logo dengan animasi
@@ -908,6 +994,7 @@ lib/widgets/empty_state.dart          // Empty state dengan icon/illustration
 ```
 
 #### **📱 Screen Examples:**
+
 ```dart
 lib/features/home/home_screen.dart        // Layout dengan Stack, animations
 lib/features/splash/splash_screen.dart    // Splash dengan layered animations
@@ -917,6 +1004,7 @@ lib/features/analytics/analytics_screen.dart    // Charts dengan fl_chart
 ```
 
 #### **🔧 Core Utilities:**
+
 ```dart
 lib/core/design_system.dart           // Design tokens (Spacing, Radii, Shadows)
 lib/core/theme.dart                   // Theme configuration & extensions
@@ -929,14 +1017,17 @@ lib/data/models/transaction.dart      // Model example dengan JSON serialization
 ### **📺 Video Tutorials (Recommended)**
 
 #### **Flutter Basics:**
+
 - [Flutter Tutorial for Beginners](https://www.youtube.com/watch?v=1ukSR1GRtMU) - FreeCodeCamp
 - [Flutter Course](https://www.youtube.com/watch?v=VPvVD8t02U8) - Academind
 
 #### **State Management:**
+
 - [Riverpod 2.0 Complete Guide](https://www.youtube.com/watch?v=RZI5L9gi8QU) - Riverpod Creator
 - [Flutter Riverpod Tutorial](https://www.youtube.com/watch?v=ypfqfJrPKrQ) - The Net Ninja
 
 #### **Firebase Integration:**
+
 - [Flutter & Firebase Setup](https://www.youtube.com/watch?v=sfA3NWDBPZ4) - Flutter Official
 - [Firebase Auth Tutorial](https://www.youtube.com/watch?v=rWamixHIKmQ) - CodeWithAndrea
 
@@ -946,30 +1037,30 @@ lib/data/models/transaction.dart      // Model example dengan JSON serialization
 
 ```yaml
 # State Management
-flutter_riverpod: ^2.6.1           # State management
+flutter_riverpod: ^2.6.1 # State management
 
 # Routing
-go_router: ^14.6.2                 # Navigation & routing
+go_router: ^14.6.2 # Navigation & routing
 
 # UI/Animation
-flutter_animate: ^4.5.0            # Easy animations
-flutter_svg: ^2.0.16               # SVG support
-fl_chart: ^0.70.1                  # Charts & graphs
+flutter_animate: ^4.5.0 # Easy animations
+flutter_svg: ^2.0.16 # SVG support
+fl_chart: ^0.70.1 # Charts & graphs
 
 # Backend
-firebase_core: ^3.10.0             # Firebase core
-firebase_auth: ^5.3.4              # Firebase authentication
-cloud_firestore: ^5.6.0            # Firestore database
+firebase_core: ^3.10.0 # Firebase core
+firebase_auth: ^5.3.4 # Firebase authentication
+cloud_firestore: ^5.6.0 # Firestore database
 
 # Local Storage
-shared_preferences: ^2.3.4         # Key-value storage
-path_provider: ^2.1.5              # File system paths
+shared_preferences: ^2.3.4 # Key-value storage
+path_provider: ^2.1.5 # File system paths
 
 # Notifications
-flutter_local_notifications: ^18.0.1  # Local notifications
+flutter_local_notifications: ^18.0.1 # Local notifications
 
 # Utils
-intl: ^0.19.0                      # Internationalization & formatting
+intl: ^0.19.0 # Internationalization & formatting
 ```
 
 ---
@@ -977,20 +1068,24 @@ intl: ^0.19.0                      # Internationalization & formatting
 ### **🔗 Useful Links**
 
 #### **Flutter Community:**
+
 - [r/FlutterDev](https://www.reddit.com/r/FlutterDev/) - Reddit community
 - [Flutter Discord](https://discord.gg/flutter) - Discord server
 - [Flutter YouTube](https://www.youtube.com/c/flutterdev) - Official channel
 
 #### **Design Inspiration:**
+
 - [Dribbble - Finance App](https://dribbble.com/search/finance-app) - UI inspiration
 - [Material Design 3](https://m3.material.io/) - Material Design guidelines
 - [iOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/) - iOS design
 
 #### **Code Quality:**
+
 - [Effective Dart](https://dart.dev/guides/language/effective-dart) - Dart style guide
 - [Flutter Best Practices](https://docs.flutter.dev/development/data-and-backend/state-mgmt/options) - Best practices
 
 #### **Package Repository:**
+
 - [pub.dev](https://pub.dev/) - Flutter packages repository
 
 ---
@@ -998,65 +1093,80 @@ intl: ^0.19.0                      # Internationalization & formatting
 ### **🎓 Learning Path per Anggota**
 
 #### **M SULTHON ALFARIZKY (Backend Developer):**
+
 Must Learn:
+
 - [ ] Firebase Console navigation
 - [ ] Firestore data structure & queries
 - [ ] Firebase Auth methods
 - [ ] Repository pattern implementation
 
 Resources:
+
 - Firebase for Flutter Codelab
 - Firestore Security Rules documentation
 
 ---
 
-#### **ELISA ARYANI (Transactions & Categories):**
+#### **Anggota 2 (Transactions & Categories):**
+
 Must Learn:
+
 - [ ] Form validation di Flutter
 - [ ] DatePicker & TimePicker widgets
 - [ ] ListView & GridView optimization
 - [ ] Dismissible widget untuk swipe actions
 
 Resources:
+
 - Flutter Form Validation tutorial
 - Building Scrollable Lists in Flutter
 
 ---
 
-#### **PUAN AKEYLA MAHARANI MUNANJI  (Analytics & Visualization):**
+#### **Anggota 3 (Analytics & Visualization):**
+
 Must Learn:
+
 - [ ] FL Chart library (PieChart, LineChart, BarChart)
 - [ ] Data transformation untuk charts
 - [ ] PDF generation dengan pdf package
 - [ ] Date range filtering
 
 Resources:
+
 - FL Chart Documentation & Examples
 - Flutter PDF Generation tutorial
 
 ---
 
-#### **NABILA SALWA ALGHAIDA (Notifications & Settings):**
+#### **Anggota 4 (Notifications & Settings):**
+
 Must Learn:
+
 - [ ] flutter_local_notifications setup
 - [ ] Scheduled notifications
 - [ ] Theme switching (dark/light mode)
 - [ ] SharedPreferences untuk settings
 
 Resources:
+
 - Flutter Local Notifications guide
 - Theme Management in Flutter
 
 ---
 
-#### **CINDY PUJI LESTARI (Profile & Auth):**
+#### **Anggota 5 (Profile & Auth):**
+
 Must Learn:
+
 - [ ] Form validation advanced
 - [ ] Image picker & upload
 - [ ] Firebase Auth error handling
 - [ ] Email/password authentication flow
 
 Resources:
+
 - Firebase Auth Flutter Documentation
 - Image Picker Flutter Package
 
@@ -1065,6 +1175,7 @@ Resources:
 ### **📋 Cheat Sheets**
 
 #### **Git Cheat Sheet:**
+
 ```bash
 # Status & Info
 git status                    # Check status
@@ -1094,6 +1205,7 @@ git stash pop                # Restore stashed changes
 ```
 
 #### **Flutter Widget Cheat Sheet:**
+
 ```dart
 // Layout Widgets
 Container(), Padding(), Center(), Align()
@@ -1149,6 +1261,7 @@ GoRouter.go(), GoRouter.push()
 ## 🏆 Bonus Tasks (Optional)
 
 Jika ada waktu lebih, bisa dikerjakan:
+
 - [ ] Implementasi biometric authentication (fingerprint/face ID)
 - [ ] Multi-currency support
 - [ ] Sync data antar device
@@ -1162,6 +1275,7 @@ Jika ada waktu lebih, bisa dikerjakan:
 ## 📝 Progress Tracking
 
 Gunakan GitHub Projects atau Trello untuk tracking:
+
 - **Backlog:** Task yang belum dimulai
 - **In Progress:** Sedang dikerjakan
 - **Review:** Menunggu code review
@@ -1174,6 +1288,7 @@ Gunakan GitHub Projects atau Trello untuk tracking:
 ## 📧 Contact Person
 
 **Project Leader:** [Nama M SULTHON ALFARIZKY]
+
 - Email: [email]
 - Phone: [nomor]
 

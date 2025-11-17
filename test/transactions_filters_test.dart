@@ -13,16 +13,8 @@ void main() {
   testWidgets('Category filter reduces visible transactions', (tester) async {
     Intl.defaultLocale = 'id_ID';
     await initializeDateFormatting('id_ID');
-    final catFood = AppCategory(
-      id: 'c1',
-      name: 'Makan',
-      type: CategoryType.expense,
-    );
-    final catSalary = AppCategory(
-      id: 'c2',
-      name: 'Gaji',
-      type: CategoryType.income,
-    );
+    final catFood = AppCategory(id: 'c1', name: 'Makan', type: CategoryType.expense);
+    final catSalary = AppCategory(id: 'c2', name: 'Gaji', type: CategoryType.income);
 
     final txFood = AppTransaction(
       id: 't1',
@@ -41,23 +33,21 @@ void main() {
       note: 'Gaji Bulanan',
     );
 
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          categoriesProvider.overrideWith((ref) {
-            final n = CategoriesNotifier(FakeCategoriesRepository());
-            n.state = AsyncValue.data([catFood, catSalary]);
-            return n;
-          }),
-          transactionsProvider.overrideWith((ref) {
-            final n = TransactionsNotifier(FakeTransactionsRepository());
-            n.state = AsyncValue.data([txFood, txSalary]);
-            return n;
-          }),
-        ],
-        child: const MaterialApp(home: TransactionsScreen()),
-      ),
-    );
+    await tester.pumpWidget(ProviderScope(
+      overrides: [
+        categoriesProvider.overrideWith((ref) {
+          final n = CategoriesNotifier(FakeCategoriesRepository());
+          n.state = AsyncValue.data([catFood, catSalary]);
+          return n;
+        }),
+        transactionsProvider.overrideWith((ref) {
+          final n = TransactionsNotifier(FakeTransactionsRepository());
+          n.state = AsyncValue.data([txFood, txSalary]);
+          return n;
+        }),
+      ],
+      child: const MaterialApp(home: TransactionsScreen()),
+    ));
 
     await tester.pumpAndSettle();
 

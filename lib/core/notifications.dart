@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotifications {
-  static final FlutterLocalNotificationsPlugin _plugin =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _plugin = FlutterLocalNotificationsPlugin();
   static bool _initialized = false;
 
   static Future<void> init() async {
@@ -29,16 +28,10 @@ class LocalNotifications {
   static Future<void> requestPermissions() async {
     if (kIsWeb) return;
     if (Platform.isIOS || Platform.isMacOS) {
-      await _plugin
-          .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin
-          >()
-          ?.requestPermissions(alert: true, badge: true, sound: true);
-      await _plugin
-          .resolvePlatformSpecificImplementation<
-            MacOSFlutterLocalNotificationsPlugin
-          >()
-          ?.requestPermissions(alert: true, badge: true, sound: true);
+      await _plugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.
+          requestPermissions(alert: true, badge: true, sound: true);
+      await _plugin.resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>()?.
+          requestPermissions(alert: true, badge: true, sound: true);
     }
   }
 
@@ -54,10 +47,7 @@ class LocalNotifications {
       priority: Priority.defaultPriority,
     );
     const iosDetails = DarwinNotificationDetails();
-    const details = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
+    const details = NotificationDetails(android: androidDetails, iOS: iosDetails);
     // Simple delayed show without timezone dependency
     await Future.delayed(const Duration(seconds: 5));
     await _plugin.show(
