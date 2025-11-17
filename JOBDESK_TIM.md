@@ -33,7 +33,7 @@ lib/core/services/firebase_service.dart
 
 ---
 
-### **Anggota 2: UI/UX Developer - Features**
+### **ELISA ARYANI: UI/UX Developer - Features**
 **Fokus:** Pengembangan fitur transaksi dan kategori
 
 #### ✅ Tugas Utama:
@@ -60,7 +60,7 @@ lib/widgets/category_icon_picker.dart
 
 ---
 
-### **Anggota 3: Analytics & Visualization Developer**
+### **PUAN AKEYLA MAHARANI MUNANJI : Analytics & Visualization Developer**
 **Fokus:** Grafik, laporan, dan analisis keuangan
 
 #### ✅ Tugas Utama:
@@ -87,7 +87,7 @@ lib/core/utils/date_filter_helper.dart
 
 ---
 
-### **Anggota 4: Notification & Settings Developer**
+### **NABILA SALWA ALGHAIDA: Notification & Settings Developer**
 **Fokus:** Notifikasi, pengaturan, dan fitur tambahan
 
 #### ✅ Tugas Utama:
@@ -114,7 +114,7 @@ lib/data/providers/theme_provider.dart
 
 ---
 
-### **Anggota 5: Profile & Authentication Developer**
+### **CINDY PUJI LESTARI: Profile & Authentication Developer**
 **Fokus:** Halaman profil, autentikasi, dan manajemen akun
 
 #### ✅ Tugas Utama:
@@ -152,54 +152,54 @@ lib/widgets/profile_avatar.dart
 | Anggota | Tugas Minggu Ini |
 |---------|------------------|
 | **M SULTHON ALFARIZKY** | Setup Firebase project, konfigurasi FlutterFire |
-| **Anggota 2** | Analisis UI Transaksi yang ada, buat mockup improvement |
-| **Anggota 3** | Research library chart (fl_chart), buat prototype dashboard |
-| **Anggota 4** | Setup local notifications, research notification patterns |
-| **Anggota 5** | Perbaiki halaman Login & Register yang sudah ada |
+| **ELISA ARYANI** | Analisis UI Transaksi yang ada, buat mockup improvement |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | Research library chart (fl_chart), buat prototype dashboard |
+| **NABILA SALWA ALGHAIDA** | Setup local notifications, research notification patterns |
+| **CINDY PUJI LESTARI** | Perbaiki halaman Login & Register yang sudah ada |
 
 ### **Minggu 2: Core Development - Phase 1**
 | Anggota | Tugas Minggu Ini |
 |---------|------------------|
 | **M SULTHON ALFARIZKY** | Implementasi Firebase Auth (login, register, logout) |
-| **Anggota 2** | Buat halaman Transaction Form (tambah transaksi) |
-| **Anggota 3** | Implementasi Pie Chart di halaman Analytics |
-| **Anggota 4** | Buat halaman Settings dengan basic options |
-| **Anggota 5** | Implementasi Edit Profile & Upload Foto |
+| **ELISA ARYANI** | Buat halaman Transaction Form (tambah transaksi) |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | Implementasi Pie Chart di halaman Analytics |
+| **NABILA SALWA ALGHAIDA** | Buat halaman Settings dengan basic options |
+| **CINDY PUJI LESTARI** | Implementasi Edit Profile & Upload Foto |
 
 ### **Minggu 3: Core Development - Phase 2**
 | Anggota | Tugas Minggu Ini |
 |---------|------------------|
 | **M SULTHON ALFARIZKY** | Implementasi Firestore untuk Transactions |
-| **Anggota 2** | Buat halaman Transaction Detail & Edit |
-| **Anggota 3** | Implementasi Line Chart untuk trend bulanan |
-| **Anggota 4** | Implementasi notifikasi reminder transaksi |
-| **Anggota 5** | Buat halaman Forgot Password |
+| **ELISA ARYANI** | Buat halaman Transaction Detail & Edit |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | Implementasi Line Chart untuk trend bulanan |
+| **NABILA SALWA ALGHAIDA** | Implementasi notifikasi reminder transaksi |
+| **CINDY PUJI LESTARI** | Buat halaman Forgot Password |
 
 ### **Minggu 4: Feature Completion**
 | Anggota | Tugas Minggu Ini |
 |---------|------------------|
 | **M SULTHON ALFARIZKY** | Implementasi Firestore untuk Categories & Sync |
-| **Anggota 2** | Implementasi filter & search transaksi |
-| **Anggota 3** | Buat fitur export PDF untuk laporan |
-| **Anggota 4** | Implementasi Budget Alert & Notification |
-| **Anggota 5** | Buat halaman About & Privacy Policy |
+| **ELISA ARYANI** | Implementasi filter & search transaksi |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | Buat fitur export PDF untuk laporan |
+| **NABILA SALWA ALGHAIDA** | Implementasi Budget Alert & Notification |
+| **CINDY PUJI LESTARI** | Buat halaman About & Privacy Policy |
 
 ### **Minggu 5: Integration & Enhancement**
 | Anggota | Tugas Minggu Ini |
 |---------|------------------|
 | **M SULTHON ALFARIZKY** | Testing integrasi Firebase, fix bugs |
-| **Anggota 2** | Polish UI Transaksi, tambah animasi |
-| **Anggota 3** | Tambah Bar Chart & lebih banyak insights |
-| **Anggota 4** | Implementasi Dark Mode toggle |
-| **Anggota 5** | Polish UI Profile & Auth screens |
+| **ELISA ARYANI** | Polish UI Transaksi, tambah animasi |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | Tambah Bar Chart & lebih banyak insights |
+| **NABILA SALWA ALGHAIDA** | Implementasi Dark Mode toggle |
+| **CINDY PUJI LESTARI** | Polish UI Profile & Auth screens |
 
 ### **Minggu 6: Testing & Bug Fixing**
 | Tugas | PIC |
 |-------|-----|
 | Unit Testing | Semua anggota untuk bagiannya masing-masing |
 | Integration Testing | M SULTHON ALFARIZKY & 2 |
-| UI/UX Testing | Anggota 3 & 5 |
-| Performance Testing | Anggota 4 |
+| UI/UX Testing | PUAN AKEYLA MAHARANI MUNANJI  & 5 |
+| Performance Testing | NABILA SALWA ALGHAIDA |
 | Bug Fixing | Semua anggota (sesuai domain) |
 
 ### **Minggu 7: Finalization & Release Preparation**
@@ -223,7 +223,7 @@ lib/widgets/profile_avatar.dart
 
 **Contoh Update:**
 ```
-[Nama] - Anggota 2:
+[Nama] - ELISA ARYANI:
 ✅ Yesterday: Selesai bikin Transaction Form UI
 🎯 Today: Implementasi validasi form & save data
 🚫 Blockers: Butuh format model Transaction dari M SULTHON ALFARIZKY
@@ -611,7 +611,7 @@ flutter_manajemenkeuangan/
 │   │   └── providers/          # Riverpod providers
 │   │
 │   ├── features/               # Features (screens & logic)
-│   │   ├── auth/              # 🔐 Authentication (Anggota 5)
+│   │   ├── auth/              # 🔐 Authentication (CINDY PUJI LESTARI)
 │   │   │   ├── login_screen.dart
 │   │   │   ├── register_screen.dart
 │   │   │   └── forgot_password_screen.dart
@@ -620,36 +620,36 @@ flutter_manajemenkeuangan/
 │   │   │   ├── home_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── transactions/      # 💰 Transactions (Anggota 2)
+│   │   ├── transactions/      # 💰 Transactions (ELISA ARYANI)
 │   │   │   ├── transaction_screen.dart
 │   │   │   ├── transaction_form_screen.dart
 │   │   │   ├── transaction_detail_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── categories/        # 📂 Categories (Anggota 2)
+│   │   ├── categories/        # 📂 Categories (ELISA ARYANI)
 │   │   │   ├── categories_screen.dart
 │   │   │   ├── category_form_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── analytics/         # 📊 Analytics (Anggota 3)
+│   │   ├── analytics/         # 📊 Analytics (PUAN AKEYLA MAHARANI MUNANJI )
 │   │   │   ├── analytics_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── notifications/     # 🔔 Notifications (Anggota 4)
+│   │   ├── notifications/     # 🔔 Notifications (NABILA SALWA ALGHAIDA)
 │   │   │   ├── notifications_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── profile/           # 👤 Profile (Anggota 5)
+│   │   ├── profile/           # 👤 Profile (CINDY PUJI LESTARI)
 │   │   │   ├── profile_screen.dart
 │   │   │   ├── edit_profile_screen.dart
 │   │   │   └── widgets/
 │   │   │
-│   │   ├── settings/          # ⚙️ Settings (Anggota 4)
+│   │   ├── settings/          # ⚙️ Settings (NABILA SALWA ALGHAIDA)
 │   │   │   ├── settings_screen.dart
 │   │   │   ├── change_password_screen.dart
 │   │   │   └── about_screen.dart
 │   │   │
-│   │   ├── budget/            # 💵 Budget (Anggota 4)
+│   │   ├── budget/            # 💵 Budget (NABILA SALWA ALGHAIDA)
 │   │   │   ├── budget_screen.dart
 │   │   │   └── widgets/
 │   │   │
@@ -682,10 +682,10 @@ flutter_manajemenkeuangan/
 | Anggota | Folder/Files yang Dikerjakan |
 |---------|------------------------------|
 | **M SULTHON ALFARIZKY** | `lib/data/repositories/firebase_*`<br>`lib/core/services/firebase_service.dart` |
-| **Anggota 2** | `lib/features/transactions/`<br>`lib/features/categories/` |
-| **Anggota 3** | `lib/features/analytics/`<br>`lib/features/home/widgets/` (dashboard) |
-| **Anggota 4** | `lib/features/notifications/`<br>`lib/features/settings/`<br>`lib/features/budget/` |
-| **Anggota 5** | `lib/features/auth/`<br>`lib/features/profile/` |
+| **ELISA ARYANI** | `lib/features/transactions/`<br>`lib/features/categories/` |
+| **PUAN AKEYLA MAHARANI MUNANJI ** | `lib/features/analytics/`<br>`lib/features/home/widgets/` (dashboard) |
+| **NABILA SALWA ALGHAIDA** | `lib/features/notifications/`<br>`lib/features/settings/`<br>`lib/features/budget/` |
+| **CINDY PUJI LESTARI** | `lib/features/auth/`<br>`lib/features/profile/` |
 
 ---
 
@@ -1010,7 +1010,7 @@ Resources:
 
 ---
 
-#### **Anggota 2 (Transactions & Categories):**
+#### **ELISA ARYANI (Transactions & Categories):**
 Must Learn:
 - [ ] Form validation di Flutter
 - [ ] DatePicker & TimePicker widgets
@@ -1023,7 +1023,7 @@ Resources:
 
 ---
 
-#### **Anggota 3 (Analytics & Visualization):**
+#### **PUAN AKEYLA MAHARANI MUNANJI  (Analytics & Visualization):**
 Must Learn:
 - [ ] FL Chart library (PieChart, LineChart, BarChart)
 - [ ] Data transformation untuk charts
@@ -1036,7 +1036,7 @@ Resources:
 
 ---
 
-#### **Anggota 4 (Notifications & Settings):**
+#### **NABILA SALWA ALGHAIDA (Notifications & Settings):**
 Must Learn:
 - [ ] flutter_local_notifications setup
 - [ ] Scheduled notifications
@@ -1049,7 +1049,7 @@ Resources:
 
 ---
 
-#### **Anggota 5 (Profile & Auth):**
+#### **CINDY PUJI LESTARI (Profile & Auth):**
 Must Learn:
 - [ ] Form validation advanced
 - [ ] Image picker & upload
