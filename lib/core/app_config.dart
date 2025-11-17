@@ -1,4 +1,4 @@
 enum AppBackend { local, firebase }
 
-// Switch to AppBackend.firebase after you configure Firebase (see README notes)
-const AppBackend appBackend = AppBackend.local;
+// ✅ Firebase configured! Project: danaku-app-393b5
+const AppBackend appBackend = AppBackend.firebase;
